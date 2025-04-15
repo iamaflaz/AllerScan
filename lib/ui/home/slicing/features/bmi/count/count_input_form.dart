@@ -71,7 +71,7 @@ class BMIInputForm extends StatelessWidget {
             onPressed: onCalculatePressed,
             child: Text(
               'Cek',
-                style: AppTextStyles.title2.copyWith(color: colorWhite),
+                style: AppTextStyles.montsReg1.copyWith(color: colorWhite),
             ),
           ),
         ),

@@ -18,7 +18,7 @@ class BMICustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Text(
         'Body Mass Index',
-        style: AppTextStyles.bodyTitle1.copyWith(color: colorWhite),
+        style: AppTextStyles.poppinsBold1.copyWith(color: colorWhite),
       ),
       centerTitle: true,
     );

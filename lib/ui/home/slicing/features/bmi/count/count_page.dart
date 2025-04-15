@@ -58,7 +58,7 @@ class _BMICountPageState extends State<BMICountPage> {
             const SizedBox(height: 4),
             Text(
               'Yuk, cek BMI-mu!',
-              style: AppTextStyles.title2.copyWith(color: colorBlack),
+              style: AppTextStyles.poppinsBold2.copyWith(color: colorBlack),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
@@ -66,7 +66,7 @@ class _BMICountPageState extends State<BMICountPage> {
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Text(
                 'Apakah berat badanmu sudah ideal sesuai tinggi badan?',
-                style: AppTextStyles.bodyCapt2.copyWith(color: colorBlack),
+                style: AppTextStyles.montsReg1.copyWith(color: colorBlack),
                 textAlign: TextAlign.center,
               ),
             ),

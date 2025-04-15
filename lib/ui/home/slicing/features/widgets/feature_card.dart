@@ -47,7 +47,7 @@ class FeatureCard extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 title,
-                style: AppTextStyles.navbarText.copyWith(color: colorBlack),
+                style: AppTextStyles.poppinsBold6.copyWith(color: colorBlack),
                 textAlign: TextAlign.center,
               ),
             ],

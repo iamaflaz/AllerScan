@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
     centerTitle: true,
     title: Text(
       'AllerScan',
-      style: AppTextStyles.title2.copyWith(color: colorBlack),
+      style: AppTextStyles.poppinsBold2.copyWith(color: colorBlack),
     ),
     backgroundColor: secondaryColor,
   );

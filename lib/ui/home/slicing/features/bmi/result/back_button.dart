@@ -1,4 +1,5 @@
 import 'package:allerscan/consts/colors.dart';
+import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/count/count_page.dart';
 import 'package:flutter/material.dart';
 
@@ -20,18 +21,12 @@ class BMIBackButton extends StatelessWidget {
         onPressed: () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
-              builder: (context) =>BMICountPage(),
-            ), 
+            MaterialPageRoute(builder: (context) => BMICountPage()),
           );
         },
-        child: const Text(
+        child: Text(
           'Cek Lagi',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            color: Colors.white,
-          ),
+          style: AppTextStyles.montsReg1.copyWith(color: colorWhite),
         ),
       ),
     );

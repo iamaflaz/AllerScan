@@ -1,10 +1,16 @@
+import 'package:allerscan/consts/colors.dart';
+import 'package:allerscan/consts/fonts.dart';
 import 'package:flutter/material.dart';
 
 class BMIResultCategory extends StatelessWidget {
   final String category;
   final bool isContentVisible;
 
-  const BMIResultCategory({Key? key, required this.category, required this.isContentVisible}) : super(key: key);
+  const BMIResultCategory({
+    Key? key,
+    required this.category,
+    required this.isContentVisible,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +19,7 @@ class BMIResultCategory extends StatelessWidget {
       duration: const Duration(seconds: 2),
       child: Text(
         ' $category',
-        style: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
+        style: AppTextStyles.poppinsBold2.copyWith(color: colorBlack),
       ),
     );
   }

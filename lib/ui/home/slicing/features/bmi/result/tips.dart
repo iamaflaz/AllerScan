@@ -46,12 +46,12 @@ class BMITips extends StatelessWidget {
           children: [
             Text(
               message['headline']!,
-                style: AppTextStyles.bodyTitle3.copyWith(color: colorBlack),
+                style: AppTextStyles.poppinsBold3.copyWith(color: colorBlack),
             ),
             const SizedBox(height: 8),
             Text(
               message['sub']!,
-                style: AppTextStyles.bodyCapt.copyWith(color: colorBlack),
+                style: AppTextStyles.montsReg1.copyWith(color: colorBlack),
             ),
           ],
         ),

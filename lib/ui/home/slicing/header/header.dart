@@ -50,12 +50,12 @@ class HeaderSection extends StatelessWidget {
             children: [
               Text(
                 "Fitur Lainnya",
-                style: AppTextStyles.bodyTitle3.copyWith(color: colorBlack),
+                style: AppTextStyles.poppinsBold3.copyWith(color: colorBlack),
               ),
               SizedBox(height: 4),
               Text(
                 "Jelajahi fitur tambahan yang membantu Anda",
-                style: AppTextStyles.bodyCapt.copyWith(color: colorBlack),
+                style: AppTextStyles.montsReg1.copyWith(color: colorBlack),
               ),
             ],
           ),

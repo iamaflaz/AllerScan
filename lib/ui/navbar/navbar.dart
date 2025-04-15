@@ -45,8 +45,8 @@ class _NavbarState extends State<Navbar> {
         currentIndex: _selectedIndex,
         selectedItemColor: primaryColor,
         unselectedItemColor: colorGray2,
-        selectedLabelStyle: AppTextStyles.navbarText,
-        unselectedLabelStyle: AppTextStyles.navbarText.copyWith(fontWeight: FontWeight.w400,),
+        selectedLabelStyle: AppTextStyles.poppinsBold6,
+        unselectedLabelStyle: AppTextStyles.poppinsBold6.copyWith(fontWeight: FontWeight.w400,),
         onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(
