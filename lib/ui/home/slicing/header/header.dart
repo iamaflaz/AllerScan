@@ -1,43 +1,64 @@
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class Header extends StatelessWidget {
+class HeaderSection extends StatelessWidget {
+  final Size size;
+
+  const HeaderSection({super.key, required this.size});
+
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
-        Container(height: 200, color: secondaryColor),
-
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Center(child: Text('AllerScan', style: AppTextStyles.title2)),
-        ),
-
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Image.asset('assets/maskot/body.png', height: 150),
-        ),
-
-        Positioned.fill(
-          top: 180,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-            ),
+      clipBehavior: Clip.none,
+      children: <Widget>[
+        Container(
+          height: size.height * 0.2 - 2,
+          decoration: const BoxDecoration(
+            color: secondaryColor,
           ),
         ),
-
         Positioned(
-          top: 165,
+          bottom: -100,
+          left: 0,
+          right: 40,
+          child: Image.asset(
+            "assets/images/bacck.png",
+            height: 250,
+            width: size.width,
+            fit: BoxFit.contain,
+          ),
+        ),
+        Positioned(
+          bottom: -190,
           left: 0,
           right: 0,
-          child: Image.asset('assets/maskot/hand.png', height: 25),
+          child: SvgPicture.asset(
+            "assets/images/kacang.svg",
+            height: 370,
+            width: size.width,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned(
+          bottom: -68,
+          left: 20,
+          right: 20,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Fitur Lainnya",
+                style: AppTextStyles.bodyTitle3.copyWith(color: colorBlack),
+              ),
+              SizedBox(height: 4),
+              Text(
+                "Jelajahi fitur tambahan yang membantu Anda",
+                style: AppTextStyles.bodyCapt.copyWith(color: colorBlack),
+              ),
+            ],
+          ),
         ),
       ],
     );

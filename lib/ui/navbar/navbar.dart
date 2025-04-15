@@ -18,7 +18,7 @@ class _NavbarState extends State<Navbar> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomePage(),
+    Home(),
     const ScanPage(),
     const ManageAllergiesPage(),
   ];
@@ -51,7 +51,7 @@ class _NavbarState extends State<Navbar> {
         items: [
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'assets/icon/home.svg',
+              'assets/icons/home.svg',
               width: 24,
               height: 24,
               colorFilter: ColorFilter.mode(
@@ -63,14 +63,14 @@ class _NavbarState extends State<Navbar> {
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icon/scan.png', 
+              'assets/icons/scan.png', 
               width: 48, 
               height: 48),
             label: '',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'assets/icon/setting.svg',
+              'assets/icons/setting.svg',
               width: 24,
               height: 24,
               colorFilter: ColorFilter.mode(
