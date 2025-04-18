@@ -72,4 +72,8 @@ class AppTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w400,
   );
+  static final montsReg3 = GoogleFonts.montserrat(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  );
 }

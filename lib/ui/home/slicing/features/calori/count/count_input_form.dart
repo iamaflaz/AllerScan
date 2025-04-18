@@ -46,7 +46,7 @@ class CaloriInputForm extends StatelessWidget {
             onPressed: onCalculatePressed,
             child: Text(
               'Hitung',
-              style: AppTextStyles.montsReg1.copyWith(color: colorWhite),
+              style: AppTextStyles.montsBold5.copyWith(color: colorWhite),
             ),
           ),
         ),

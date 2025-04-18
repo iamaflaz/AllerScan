@@ -1,4 +1,4 @@
-import 'package:allerscan/ui/home/slicing/features/bmi/result/back_button.dart';
+import 'package:allerscan/ui/home/slicing/features/bmi/count/count_page.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/category.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/header.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/indicator.dart';
@@ -42,7 +42,7 @@ class _BMIResultPageState extends State<BMIResultPage> {
   String getBMICategory() {
     if (widget.bmi < 18.5) return 'UNDERWEIGHT';
     if (widget.bmi <= 24.9) return 'IDEAL';
-    if (widget.bmi <=29.9) return 'OVERWEIGHT';
+    if (widget.bmi <= 29.9) return 'OVERWEIGHT';
     return 'OBESITAS';
   }
 
@@ -59,7 +59,7 @@ class _BMIResultPageState extends State<BMIResultPage> {
     return Scaffold(
       backgroundColor: colorWhite,
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: primaryColor,
         leading: IconButton(
           color: colorWhite,
           icon: const Icon(Icons.arrow_back),
@@ -80,7 +80,10 @@ class _BMIResultPageState extends State<BMIResultPage> {
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   children: [
-                    BMIHeader(isContentVisible: _isContentVisible, bmiCategory: category),
+                    BMIHeader(
+                      isContentVisible: _isContentVisible,
+                      bmiCategory: category,
+                    ),
                     SizedBox(height: 24),
                     BMIIndicator(
                       bmi: widget.bmi,
@@ -94,7 +97,30 @@ class _BMIResultPageState extends State<BMIResultPage> {
                     SizedBox(height: 24),
                     BMITips(category: category),
                     SizedBox(height: 24),
-                    BMIBackButton(),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BMICountPage(),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryColor,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          "Cek Lagi",
+                          style: AppTextStyles.montsBold5.copyWith(color: colorWhite),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

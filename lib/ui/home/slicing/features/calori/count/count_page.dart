@@ -1,7 +1,7 @@
 import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/count/count_app_bar.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/count/count_input_form.dart';
-import 'package:allerscan/ui/home/slicing/features/calori/result/result.dart';
+import 'package:allerscan/ui/home/slicing/features/calori/result/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
 
