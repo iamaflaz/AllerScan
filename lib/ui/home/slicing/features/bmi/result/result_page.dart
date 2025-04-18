@@ -69,7 +69,7 @@ class _BMIResultPageState extends State<BMIResultPage> {
         ),
         title: Text(
           'Hasil BMI',
-          style: AppTextStyles.poppinsBold1.copyWith(color: colorWhite),
+          style: AppTextStyles.poppinsBold2.copyWith(color: colorWhite),
         ),
         centerTitle: true,
       ),

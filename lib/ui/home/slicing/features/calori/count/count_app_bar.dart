@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 
-class BMICustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const BMICustomAppBar({super.key});
+class CaloriCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CaloriCustomAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class BMICustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
       ),
       title: Text(
-        'Body Mass Index',
+        'Kalori Harian',
         style: AppTextStyles.poppinsBold2.copyWith(color: colorWhite),
       ),
       centerTitle: true,

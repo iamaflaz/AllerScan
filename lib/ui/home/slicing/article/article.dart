@@ -1,8 +1,40 @@
 import 'package:allerscan/consts/colors.dart';
+import 'package:allerscan/consts/fonts.dart';
+import 'package:allerscan/ui/home/slicing/article/widget/article_card.dart';
+import 'package:allerscan/ui/home/slicing/features/article/service.dart';
 import 'package:flutter/material.dart';
 
-class BeritaSection extends StatelessWidget {
+class BeritaSection extends StatefulWidget {
   const BeritaSection({super.key});
+
+  @override
+  State<BeritaSection> createState() => _BeritaSectionState();
+}
+
+class _BeritaSectionState extends State<BeritaSection> {
+  List<dynamic> news = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchBerita();
+  }
+
+  Future<void> fetchBerita() async {
+    try {
+      final result = await NewsService.fetchNews();
+      setState(() {
+        news = result.take(3).toList();
+        isLoading = false;
+      });
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,96 +42,23 @@ class BeritaSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text(
-            "Seputar Berita",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 4),
-          Text(
-            "Tetap terinformasi dengan berita terbaru",
-            style: TextStyle(
-              fontSize: 14,
-              color: Color.fromARGB(179, 74, 74, 74),
-            ),
-          ),
-          SizedBox(height: 16),
-          NewsItem(
-            imagePath: 'assets/images/news1.png',
-            title: 'Tips Membaca Label Makanan',
-            subtitle: 'Pelajari cara membaca label makanan untuk hindari alergi.',
-          ),
-          NewsItem(
-            imagePath: 'assets/images/news1.png',
-            title: 'Inovasi Aplikasi Kesehatan',
-            subtitle: 'Aplikasi baru bantu penderita alergi pantau asupan harian.',
-          ),
-          NewsItem(
-            imagePath: 'assets/images/news1.png',
-            title: 'Mengenal BMR & BMI',
-            subtitle: 'Kenali perbedaan dan manfaat dari BMR dan BMI.',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class NewsItem extends StatelessWidget {
-  final String imagePath;
-  final String title;
-  final String subtitle;
-
-  const NewsItem({
-    required this.imagePath,
-    required this.title,
-    required this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 24),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              imagePath,
-              width: 90,
-              height: 90,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: colorBlack,
-                  ),
+          Text("Seputar Berita", style: AppTextStyles.poppinsBold3.copyWith(color: colorBlack)),
+          const SizedBox(height: 4),
+          Text("Tetap terinformasi dengan berita terbaru", style: AppTextStyles.montsReg1.copyWith(color: colorBlack)),
+          const SizedBox(height: 16),
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Column(
+                  children: news.map((item) {
+                    return ArticleCard(
+                      imageUrl: item['urlToImage'] ?? '',
+                      title: item['title'] ?? '',
+                      published: item['publishedAt'] ?? '',
+                      article: item,
+                    );
+                  }).toList(),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: colorGray1,
-                  ),
-                ),
-              ],
-            ),
-          )
         ],
       ),
     );
