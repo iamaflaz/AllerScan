@@ -1,10 +1,17 @@
-import 'package:allerscan/consts/fonts.dart';
-import 'package:allerscan/ui/scan/scan_page/scan_page.dart';
 import 'package:flutter/material.dart';
+import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/ui/home/home.dart';
 import 'package:allerscan/ui/manage/manage_allergies/manage_allergies.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:allerscan/ui/scan/scan_page/helpers/image_picker_alert.dart'; // Import Image Picker
+import 'package:allerscan/ui/scan/scan_page/interfaces/text_recognizer.dart'; // Import Interface
+import 'package:allerscan/ui/scan/scan_page/helpers/mlkit_text_recognizer.dart'; // Import MLKitTextRecognizer
+import 'package:allerscan/ui/scan/scan_page/result_page.dart'; // Import ResultScreen
+import 'package:provider/provider.dart';
+import 'package:allerscan/ui/manage/manage_allergies/providers/allergy_provider.dart';
+import 'package:allerscan/ui/scan/scan_page/scan_page.dart';
 
 class Navbar extends StatefulWidget {
   final int initialIndex;
@@ -23,16 +30,81 @@ class _NavbarState extends State<Navbar> {
     const ManageAllergiesPage(),
   ];
 
+  late ImagePicker _picker;
+  late ITextRecognizer _recognizer;
+
   @override
   void initState() {
     super.initState();
     _selectedIndex = widget.initialIndex;
+    _picker = ImagePicker();
+    _recognizer = MLKitTextRecognizer();
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  void _onItemTapped(int index) async {
+    if (index == 1) {
+      // Tampilkan pilihan kamera/galeri
+      showDialog(
+        context: context,
+        builder:
+            (context) => imagePickAlert(
+              onCameraPressed: () async {
+                final imgPath = await _picker.pickImage(
+                  source: ImageSource.camera,
+                );
+                if (imgPath == null) return;
+                processImage(imgPath.path);
+                Navigator.of(context).pop();
+              },
+              onGalleryPressed: () async {
+                final imgPath = await _picker.pickImage(
+                  source: ImageSource.gallery,
+                );
+                if (imgPath == null) return;
+                processImage(imgPath.path);
+                Navigator.of(context).pop();
+              },
+            ),
+      );
+    } else {
+      // Navigasi halaman selain Scan tetap berjalan
+      setState(() {
+        _selectedIndex = index;
+        // Memastikan halaman tetap pada pilihan yang benar
+      });
+    }
+  }
+
+  void processImage(String imgPath) async {
+    final recognizedText = await _recognizer.processImage(imgPath);
+
+    final allergyProvider = Provider.of<AllergyProvider>(
+      context,
+      listen: false,
+    );
+
+    final scannedText = recognizedText.toLowerCase();
+    final detectedAllergies =
+        allergyProvider.selectedAllergies
+            .where((allergy) => scannedText.contains(allergy.toLowerCase()))
+            .toList();
+
+    // Menampilkan ResultScreen di bottom sheet
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Agar tinggi bottom sheet bisa dikontrol
+      builder: (context) {
+        return ResultScreen(detectedAllergies: detectedAllergies);
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_recognizer is MLKitTextRecognizer) {
+      (_recognizer as MLKitTextRecognizer).dispose();
+    }
   }
 
   @override
@@ -46,7 +118,9 @@ class _NavbarState extends State<Navbar> {
         selectedItemColor: primaryColor,
         unselectedItemColor: colorGray2,
         selectedLabelStyle: AppTextStyles.poppinsBold6,
-        unselectedLabelStyle: AppTextStyles.poppinsBold6.copyWith(fontWeight: FontWeight.w400,),
+        unselectedLabelStyle: AppTextStyles.poppinsBold6.copyWith(
+          fontWeight: FontWeight.w400,
+        ),
         onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(
@@ -62,10 +136,7 @@ class _NavbarState extends State<Navbar> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/icons/scan.png', 
-              width: 48, 
-              height: 48),
+            icon: Image.asset('assets/icons/scan.png', width: 48, height: 48),
             label: '',
           ),
           BottomNavigationBarItem(

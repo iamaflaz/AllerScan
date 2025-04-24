@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:allerscan/ui/splash/splash.dart';
 import 'package:allerscan/ui/navbar/navbar.dart';
+import 'package:allerscan/ui/manage/manage_allergies/providers/allergy_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => AllergyProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,9 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'AllerScan',
       home: const SplashScreen(),
-      routes: {
-        '/navbar': (context) => const Navbar(),
-      },
+      routes: {'/navbar': (context) => const Navbar()},
     );
   }
 }

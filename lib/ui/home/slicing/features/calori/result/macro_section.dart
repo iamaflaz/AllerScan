@@ -27,9 +27,9 @@ class CaloriMacroSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CaloriMacroCard(label: "Karbohidrat", value: "${macros['carbs']}gram/hari"),
-            CaloriMacroCard(label: "Protein", value: "${macros['protein']}gram/hari"),
-            CaloriMacroCard(label: "Lemak", value: "${macros['fat']}gram/hari"),
+            CaloriMacroCard(label: "Karbohidrat", value: "${macros['carbs']} gram"),
+            CaloriMacroCard(label: "Protein", value: "${macros['protein']} gram"),
+            CaloriMacroCard(label: "Lemak", value: "${macros['fat']} gram"),
           ],
         ),
       ],

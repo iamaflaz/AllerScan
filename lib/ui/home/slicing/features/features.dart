@@ -20,13 +20,13 @@ class FiturSection extends StatelessWidget {
             routeBuilder: BMICountPage(),
           ),
           FeatureCard(
-            title: "BMR",
+            title: "Kalori Harian",
             assetPath: "assets/icons/bmr.png",
             routeBuilder: CaloriCountPage(),
           ),
           FeatureCard(
             title: "Article",
-            assetPath: "assets/icons/bmi.png",
+            assetPath: "assets/icons/article.png",
             routeBuilder: ArticleListPage(),
           ),
         ],

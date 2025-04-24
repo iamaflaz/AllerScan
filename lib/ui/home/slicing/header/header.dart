@@ -1,7 +1,6 @@
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HeaderSection extends StatelessWidget {
   final Size size;
@@ -15,34 +14,22 @@ class HeaderSection extends StatelessWidget {
       children: <Widget>[
         Container(
           height: size.height * 0.2 - 2,
-          decoration: const BoxDecoration(
-            color: secondaryColor,
-          ),
+          decoration: const BoxDecoration(color: secondaryColor),
         ),
         Positioned(
-          bottom: -100,
-          left: 0,
-          right: 40,
-          child: Image.asset(
-            "assets/images/bacck.png",
-            height: 250,
-            width: size.width,
-            fit: BoxFit.contain,
-          ),
-        ),
-        Positioned(
-          bottom: -190,
+          bottom: -72,
           left: 0,
           right: 0,
-          child: SvgPicture.asset(
-            "assets/images/kacang.svg",
-            height: 370,
+          child: Image.asset(
+            "assets/gif/body.gif",
+            height: 250,
             width: size.width,
             fit: BoxFit.cover,
           ),
         ),
+
         Positioned(
-          bottom: -68,
+          bottom: -76,
           left: 20,
           right: 20,
           child: Column(

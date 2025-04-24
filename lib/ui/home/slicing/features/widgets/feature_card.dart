@@ -43,7 +43,7 @@ class FeatureCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(assetPath, height: 32),
+              Image.asset(assetPath, height: 36),
               const SizedBox(height: 4),
               Text(
                 title,

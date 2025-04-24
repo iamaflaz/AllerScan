@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 7), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/logo_gif.gif', width: 200),
+            Image.asset('assets/gif/logo_gif.gif', width: 200),
           ],
         ),
       ),
