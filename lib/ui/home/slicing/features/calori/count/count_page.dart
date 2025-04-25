@@ -29,9 +29,9 @@ class _CaloriCountPageState extends State<CaloriCountPage> {
 
     if (weight > 0 && height > 0 && age > 0) {
       if (gender == 'Laki-laki') {
-        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+        bmr = 13.7 * weight + 5 * height - 6.8 * age + 65;
       } else {
-        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+        bmr = 9.6 * weight + 1.8 * height - 4.7 * age + 655;
       }
 
       tdee = bmr * activityFactor;

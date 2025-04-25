@@ -92,10 +92,9 @@ class CaloriInputForm extends StatelessWidget {
       decoration: _dropdownDecoration("Tingkat Aktivitas"),
       items: const [
         DropdownMenuItem(value: 1.2, child: Text('Sangat sedikit aktivitas')),
-        DropdownMenuItem(value: 1.375, child: Text('Ringan (1-3x/minggu)')),
+        DropdownMenuItem(value: 1.3, child: Text('Ringan (1-3x/minggu)')),
         DropdownMenuItem(value: 1.55, child: Text('Sedang (3-5x/minggu)')),
-        DropdownMenuItem(value: 1.725, child: Text('Berat (6-7x/minggu)')),
-        DropdownMenuItem(value: 1.9, child: Text('Sangat berat')),
+        DropdownMenuItem(value: 1.73, child: Text('Berat (6-7x/minggu)')),
       ],
       onChanged: onActivityChanged,
     );

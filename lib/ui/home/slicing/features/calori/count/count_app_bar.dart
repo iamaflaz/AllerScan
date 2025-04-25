@@ -1,8 +1,10 @@
+import 'package:allerscan/ui/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 
-class CaloriCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CaloriCustomAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const CaloriCustomAppBar({super.key});
 
   @override
@@ -13,7 +15,10 @@ class CaloriCustomAppBar extends StatelessWidget implements PreferredSizeWidget 
         icon: const Icon(Icons.arrow_back),
         color: colorWhite,
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Home()),
+          );
         },
       ),
       title: Text(

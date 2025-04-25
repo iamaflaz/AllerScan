@@ -31,7 +31,7 @@ class CaloriMacroCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Text(label, style: AppTextStyles.montsReg3.copyWith(color: colorBlack)),
+            Text(label, style: AppTextStyles.montsReg2.copyWith(color: colorBlack)),
             const SizedBox(height: 4),
             Text(value, style: AppTextStyles.montsBold5.copyWith(color: colorBlack)),
           ],

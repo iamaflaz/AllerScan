@@ -26,11 +26,11 @@ class CaloriTipsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: AppTextStyles.montsReg1.copyWith(color: colorBlack)),
+          Text(title, style: AppTextStyles.montsBold5.copyWith(color: colorBlack)),
           const SizedBox(height: 8),
           Text(value, style: AppTextStyles.poppinsBold1.copyWith(color: primaryColor)),
           const SizedBox(height: 8),
-          Text(description, style: AppTextStyles.montsReg3.copyWith(color: colorGray1)),
+          Text(description, style: AppTextStyles.montsReg2.copyWith(color: colorGray1)),
         ],
       ),
     );

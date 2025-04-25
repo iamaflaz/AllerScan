@@ -1,3 +1,4 @@
+import 'package:allerscan/ui/scan/result_page/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/consts/colors.dart';
@@ -8,7 +9,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:allerscan/ui/scan/scan_page/helpers/image_picker_alert.dart'; // Import Image Picker
 import 'package:allerscan/ui/scan/scan_page/interfaces/text_recognizer.dart'; // Import Interface
 import 'package:allerscan/ui/scan/scan_page/helpers/mlkit_text_recognizer.dart'; // Import MLKitTextRecognizer
-import 'package:allerscan/ui/scan/scan_page/result_page.dart'; // Import ResultScreen
 import 'package:provider/provider.dart';
 import 'package:allerscan/ui/manage/manage_allergies/providers/allergy_provider.dart';
 import 'package:allerscan/ui/scan/scan_page/scan_page.dart';
@@ -92,9 +92,12 @@ class _NavbarState extends State<Navbar> {
     // Menampilkan ResultScreen di bottom sheet
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // Agar tinggi bottom sheet bisa dikontrol
+      isScrollControlled: true,
       builder: (context) {
-        return ResultScreen(detectedAllergies: detectedAllergies);
+        return ResultPage(
+          detectedAllergies: detectedAllergies,
+          imgPath: imgPath,
+        );
       },
     );
   }

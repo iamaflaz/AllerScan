@@ -20,9 +20,9 @@ class CaloriMacroSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: AppTextStyles.montsBold5.copyWith(color: colorBlack)),
+        Text(title, style: AppTextStyles.montsBold4.copyWith(color: colorBlack)),
         const SizedBox(height: 8),
-        Text(subtitle, style: AppTextStyles.montsReg3.copyWith(color: colorGray1)),
+        Text(subtitle, style: AppTextStyles.montsReg2.copyWith(color: colorGray1)),
         const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

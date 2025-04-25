@@ -63,6 +63,10 @@ class AppTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w700,
   );
+    static final montsBold6 = GoogleFonts.montserrat(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+  );
 //bodyCapt
   static final montsReg1 = GoogleFonts.montserrat(
     fontSize: 16,

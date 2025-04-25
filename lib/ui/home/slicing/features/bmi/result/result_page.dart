@@ -1,3 +1,4 @@
+import 'package:allerscan/ui/home/home.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/count/count_page.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/category.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/header.dart';
@@ -117,7 +118,38 @@ class _BMIResultPageState extends State<BMIResultPage> {
                         ),
                         child: Text(
                           "Cek Lagi",
-                          style: AppTextStyles.montsBold5.copyWith(color: colorWhite),
+                          style: AppTextStyles.montsBold5.copyWith(
+                            color: colorWhite,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => Home()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: colorWhite,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: const BorderSide(
+                              color: primaryColor,
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          "Kembali",
+                          style: AppTextStyles.montsBold5.copyWith(
+                            color: primaryColor,
+                          ),
                         ),
                       ),
                     ),

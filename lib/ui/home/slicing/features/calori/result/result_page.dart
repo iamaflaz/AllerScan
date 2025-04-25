@@ -1,5 +1,6 @@
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
+import 'package:allerscan/ui/home/home.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/count/count_page.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/result/macro_section.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/result/tips.dart';
@@ -100,7 +101,34 @@ class CaloriResultPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: Text("Cek Lagi", style: AppTextStyles.montsBold5.copyWith(color: colorWhite),),
+                child: Text(
+                  "Cek Lagi",
+                  style: AppTextStyles.montsBold5.copyWith(color: colorWhite),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: colorWhite,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: const BorderSide(color: primaryColor, width: 2),
+                  ),
+                ),
+                child: Text(
+                  "Kembali",
+                  style: AppTextStyles.montsBold5.copyWith(color: primaryColor),
+                ),
               ),
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:allerscan/consts/colors.dart';
 import 'package:flutter/material.dart';
 
 Widget imagePickAlert({
@@ -5,7 +6,8 @@ Widget imagePickAlert({
   void Function()? onGalleryPressed,
 }) {
   return AlertDialog(
-    title: const Text("Pick a source:"),
+    backgroundColor: colorWhite,
+    title: const Text("Ambil dari"),
     content: Column(
       mainAxisSize: MainAxisSize.min,
       children: [

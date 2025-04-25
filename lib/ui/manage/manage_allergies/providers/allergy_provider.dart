@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AllergyProvider with ChangeNotifier {
-  // Daftar alergi yang tersedia
-  final List<String> availableAllergies = ['Gluten', 'Kacang', 'Susu', 'Tepung'];
+  final List<String> availableAllergies = ['Gluten', 'Kacang', 'Susu'];
 
-  // Daftar alergi yang dipilih
+  final Map<String, List<String>> allergyIngredients = {
+    'Gluten': ['gandum', 'wheat', 'barley', 'rye', 'seitan', 'tepung', 'cornstarch'],
+    'Kacang': ['kacang', 'peanut', 'almond', 'cashew'],
+    'Susu': ['susu', 'milk', 'lactose', 'cheese', 'yogurt'],
+  };
+
   final List<String> _selectedAllergies = [];
 
-  // Getter untuk alergi yang dipilih
   List<String> get selectedAllergies => _selectedAllergies;
-
-  // Memeriksa apakah alergi sudah dipilih
   bool isSelected(String allergy) {
     return _selectedAllergies.contains(allergy);
   }
 
-  // Toggle status alergi
   void toggleAllergy(String allergy) {
     if (isSelected(allergy)) {
       _selectedAllergies.remove(allergy);
@@ -27,18 +27,35 @@ class AllergyProvider with ChangeNotifier {
     _saveSelectedAllergies();
   }
 
-  // Menyimpan pilihan alergi ke SharedPreferences
+
   Future<void> _saveSelectedAllergies() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setStringList('selectedAllergies', _selectedAllergies);
   }
 
-  // Mengambil pilihan alergi dari SharedPreferences
+
   Future<void> loadSelectedAllergies() async {
     final prefs = await SharedPreferences.getInstance();
     final savedAllergies = prefs.getStringList('selectedAllergies') ?? [];
     _selectedAllergies.clear();
     _selectedAllergies.addAll(savedAllergies);
     notifyListeners();
+  }
+
+
+  List<String> detectAllergiesInText(String text) {
+    List<String> detectedAllergies = [];
+    allergyIngredients.forEach((allergy, ingredients) {
+      for (var ingredient in ingredients) {
+        if (text.toLowerCase().contains(ingredient)) {
+          if (!_selectedAllergies.contains(allergy)) {
+            detectedAllergies.add(allergy);
+          }
+          break; 
+        }
+      }
+    });
+
+    return detectedAllergies;
   }
 }
