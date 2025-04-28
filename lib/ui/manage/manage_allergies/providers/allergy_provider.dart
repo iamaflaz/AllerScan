@@ -13,6 +13,7 @@ class AllergyProvider with ChangeNotifier {
   final List<String> _selectedAllergies = [];
 
   List<String> get selectedAllergies => _selectedAllergies;
+
   bool isSelected(String allergy) {
     return _selectedAllergies.contains(allergy);
   }
@@ -27,12 +28,10 @@ class AllergyProvider with ChangeNotifier {
     _saveSelectedAllergies();
   }
 
-
   Future<void> _saveSelectedAllergies() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setStringList('selectedAllergies', _selectedAllergies);
   }
-
 
   Future<void> loadSelectedAllergies() async {
     final prefs = await SharedPreferences.getInstance();
@@ -42,16 +41,17 @@ class AllergyProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
   List<String> detectAllergiesInText(String text) {
     List<String> detectedAllergies = [];
+
     allergyIngredients.forEach((allergy, ingredients) {
       for (var ingredient in ingredients) {
-        if (text.toLowerCase().contains(ingredient)) {
-          if (!_selectedAllergies.contains(allergy)) {
+        if (text.toLowerCase().contains(ingredient.toLowerCase())) {
+          if (!_selectedAllergies.contains(allergy) &&
+              !detectedAllergies.contains(allergy)) {
             detectedAllergies.add(allergy);
           }
-          break; 
+          break;
         }
       }
     });

@@ -52,13 +52,6 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
               decoration: BoxDecoration(
                 color: selected ? primaryColor : colorWhite,
                 borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: colorBlack,
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
               ),
               child: Row(
                 children: [

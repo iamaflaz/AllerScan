@@ -25,7 +25,7 @@ class ResultPage extends StatelessWidget {
           Image.file(
             File(imgPath),
             width: double.infinity,
-            height: 500,
+            height: 300,
             fit: BoxFit.cover,
           ),
           const SizedBox(height: 12),
