@@ -1,14 +1,12 @@
-import 'package:allerscan/consts/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
 
-class SuccessPage extends StatelessWidget {
-  const SuccessPage({super.key});
+class SuccessScreen extends StatelessWidget {
+  const SuccessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(top: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -22,15 +20,19 @@ class SuccessPage extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+                  children: const [
                     Text(
                       'PRODUK AMAN DIKONSUMSI',
-                      style: AppTextStyles.poppinsBold2.copyWith(color: colorBlack),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor,
+                      ),
                     ),
                     SizedBox(height: 4),
                     Text(
                       'Produk ini tidak mengandung bahan yang dapat memicu alergi.',
-                      style: AppTextStyles.montsReg2.copyWith(color: colorBlack),
+                      style: TextStyle(fontSize: 14),
                       textAlign: TextAlign.center,
                     ),
                   ],

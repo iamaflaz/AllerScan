@@ -1,5 +1,3 @@
-import 'package:allerscan/consts/colors.dart';
-import 'package:allerscan/consts/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:allerscan/ui/manage/manage_allergies/providers/allergy_provider.dart';
@@ -27,17 +25,18 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
   @override
   Widget build(BuildContext context) {
     final allergyProvider = Provider.of<AllergyProvider>(context);
+    final orange = Colors.orange;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Kelola Alergi',
-          style: AppTextStyles.poppinsBold3.copyWith(color: colorWhite),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        backgroundColor: primaryColor,
+        backgroundColor: orange,
       ),
-      backgroundColor: colorWhite,
+      backgroundColor: const Color(0xFFF6F7FB),
       body: ListView.builder(
         itemCount: allergyProvider.availableAllergies.length,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -50,8 +49,15 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 6),
               decoration: BoxDecoration(
-                color: selected ? primaryColor : colorWhite,
+                color: selected ? orange : Colors.white,
                 borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
               child: Row(
                 children: [
@@ -59,7 +65,7 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                     width: 6,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: primaryColor,
+                      color: orange,
                       borderRadius: const BorderRadius.horizontal(
                         left: Radius.circular(12),
                       ),
@@ -70,15 +76,15 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                       title: Text(
                         allergy,
                         style: TextStyle(
-                          color: selected ? colorWhite : colorBlack,
+                          color: selected ? Colors.white : Colors.black,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       trailing: Checkbox(
                         value: selected,
-                        activeColor: colorWhite,
-                        checkColor: primaryColor,
-                        side: BorderSide(color: primaryColor),
+                        activeColor: Colors.white,
+                        checkColor: orange,
+                        side: BorderSide(color: orange),
                         onChanged:
                             (_) => allergyProvider.toggleAllergy(allergy),
                       ),

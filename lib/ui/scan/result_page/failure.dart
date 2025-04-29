@@ -49,23 +49,32 @@ class FailurePage extends StatelessWidget {
               style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
             ),
             SizedBox(height: 12),
-            ...detectedAllergies.map(
-              (allergy) => Container(
-                margin: const EdgeInsets.only(bottom: 8),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                decoration: BoxDecoration(
-                  color: colorRed2,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  allergy,
-                  style: AppTextStyles.montsBold6.copyWith(color: colorRed1),
-                ),
-              ),
+            Wrap(
+              spacing: 8, // Jarak horizontal antar item
+              runSpacing: 8, // Jarak vertikal antar baris
+              children:
+                  detectedAllergies
+                      .map(
+                        (allergy) => Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: colorRed2,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            allergy,
+                            style: AppTextStyles.montsBold6.copyWith(
+                              color: colorRed1,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
             ),
+
             const SizedBox(height: 24),
             Text(
               'APABILA KAMU TETAP MENGONSUMSI',

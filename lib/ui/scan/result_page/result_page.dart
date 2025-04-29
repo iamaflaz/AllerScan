@@ -47,9 +47,10 @@ class ResultPage extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: detectedAllergies.isEmpty
-                    ? const SuccessPage()
-                    : FailurePage(detectedAllergies: detectedAllergies),
+                child:
+                    detectedAllergies.isEmpty
+                        ? const SuccessScreen()
+                        : FailurePage(detectedAllergies: detectedAllergies),
               ),
             ),
           ),
