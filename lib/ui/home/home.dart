@@ -5,9 +5,37 @@ import 'package:allerscan/ui/home/slicing/banner/banners.dart';
 import 'package:allerscan/ui/home/slicing/features/features.dart';
 import 'package:allerscan/ui/home/slicing/header/header.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:allerscan/ui/manage/manage_allergies/providers/allergy_provider.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    // Panggil loadSelectedAllergies di sini setelah halaman Home dimuat
+    await Provider.of<AllergyProvider>(
+      context,
+      listen: false,
+    ).loadSelectedAllergies();
+
+    // Setelah data selesai dimuat, ubah status loading menjadi false
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +44,22 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context),
       backgroundColor: colorWhite,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            HeaderSection(size: size),
-            const SizedBox(height: 70),
-            const FiturSection(),
-            const BannerSection(),
-            const BeritaSection(),
-          ],
-        ),
-      ),
+      body:
+          _isLoading
+              ? Center(
+                child: CircularProgressIndicator(color: primaryColor),
+              ) // Menunggu loading
+              : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    HeaderSection(size: size),
+                    const SizedBox(height: 70),
+                    const FiturSection(),
+                    const BannerSection(),
+                    const BeritaSection(),
+                  ],
+                ),
+              ),
     );
   }
 

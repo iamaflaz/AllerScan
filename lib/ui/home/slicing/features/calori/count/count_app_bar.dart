@@ -1,4 +1,4 @@
-import 'package:allerscan/ui/home/home.dart';
+// import 'package:allerscan/ui/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
@@ -14,11 +14,14 @@ class CaloriCustomAppBar extends StatelessWidget
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         color: colorWhite,
+        // onPressed: () {
+        //   Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => Home()),
+        //   );
+        // },
         onPressed: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => Home()),
-          );
+          Navigator.pop(context);
         },
       ),
       title: Text(

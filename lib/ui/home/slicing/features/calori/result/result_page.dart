@@ -1,10 +1,10 @@
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
-import 'package:allerscan/ui/home/home.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/count/count_page.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/result/macro_section.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/result/tips.dart';
 import 'package:flutter/material.dart';
+import 'package:allerscan/ui/navbar/navbar.dart';
 
 class CaloriResultPage extends StatelessWidget {
   final double bmr;
@@ -112,9 +112,10 @@ class CaloriResultPage extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => Home()),
+                    MaterialPageRoute(builder: (context) => const Navbar()),
+                    (Route<dynamic> route) => false,
                   );
                 },
                 style: ElevatedButton.styleFrom(

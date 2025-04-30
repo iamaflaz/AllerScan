@@ -1,9 +1,9 @@
-import 'package:allerscan/ui/home/home.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/count/count_page.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/category.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/header.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/indicator.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/tips.dart';
+import 'package:allerscan/ui/navbar/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
@@ -105,10 +105,11 @@ class _BMIResultPageState extends State<BMIResultPage> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BMICountPage(),
+                              builder: (context) => const BMICountPage(),
                             ),
                           );
                         },
+
                         style: ElevatedButton.styleFrom(
                           backgroundColor: primaryColor,
                           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -129,11 +130,15 @@ class _BMIResultPageState extends State<BMIResultPage> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
+                          Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(builder: (context) => Home()),
+                            MaterialPageRoute(
+                              builder: (context) => const Navbar(),
+                            ),
+                            (Route<dynamic> route) => false,
                           );
                         },
+
                         style: ElevatedButton.styleFrom(
                           backgroundColor: colorWhite,
                           padding: const EdgeInsets.symmetric(vertical: 16),
