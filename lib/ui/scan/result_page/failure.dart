@@ -50,8 +50,8 @@ class FailurePage extends StatelessWidget {
             ),
             SizedBox(height: 12),
             Wrap(
-              spacing: 8, // Jarak horizontal antar item
-              runSpacing: 8, // Jarak vertikal antar baris
+              spacing: 8,
+              runSpacing: 8,
               children:
                   detectedAllergies
                       .map(
@@ -77,11 +77,11 @@ class FailurePage extends StatelessWidget {
 
             const SizedBox(height: 24),
             Text(
-              'APABILA KAMU TETAP MENGONSUMSI',
+              'PENJELASAN LEBIH LANJUT',
               style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
             ),
             SizedBox(height: 12),
-            FutureBuilder<List<String>>(
+            FutureBuilder<List<AllergyWarning>>(
               future: fetchAllergyWarnings(detectedAllergies),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -94,12 +94,71 @@ class FailurePage extends StatelessWidget {
                     children:
                         snapshot.data!.map((warning) {
                           return Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Text(
-                              warning,
-                              style: AppTextStyles.montsReg2.copyWith(
-                                color: colorBlack,
-                              ),
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '• ${warning.allergy}',
+                                  style: AppTextStyles.poppinsBold5.copyWith(
+                                    color: primaryColor,
+                                  ),
+                                ),
+                                SizedBox(height: 6),
+                                Text.rich(
+                                  TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'Reaksi: ',
+                                        style: AppTextStyles.montsBold6
+                                            .copyWith(color: colorBlack),
+                                      ),
+                                      TextSpan(
+                                        text: warning.reaction,
+                                        style: AppTextStyles.montsReg2.copyWith(
+                                          color: colorBlack,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text.rich(
+                                  TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'Penanganan: ',
+                                        style: AppTextStyles.montsBold6
+                                            .copyWith(color: colorBlack),
+                                      ),
+                                      TextSpan(
+                                        text: warning.treatment,
+                                        style: AppTextStyles.montsReg2.copyWith(
+                                          color: colorBlack,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text.rich(
+                                  TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'Obat: ',
+                                        style: AppTextStyles.montsBold6
+                                            .copyWith(color: colorBlack),
+                                      ),
+                                      TextSpan(
+                                        text: warning.medicine,
+                                        style: AppTextStyles.montsReg2.copyWith(
+                                          color: colorBlack,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           );
                         }).toList(),

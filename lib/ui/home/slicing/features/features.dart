@@ -1,3 +1,5 @@
+import 'package:allerscan/consts/colors.dart';
+import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/ui/home/slicing/features/article/see_more/article_list.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/count/count_page.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/count/count_page.dart';
@@ -11,23 +13,39 @@ class FiturSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FeatureCard(
-            title: "BMI",
-            assetPath: "assets/icons/bmi.png",
-            routeBuilder: BMICountPage(),
+          const SizedBox(height: 10),
+          Text(
+            "Fitur Lainnya",
+            style: AppTextStyles.poppinsBold3.copyWith(color: colorBlack),
           ),
-          FeatureCard(
-            title: "Kalori Harian",
-            assetPath: "assets/icons/bmr.png",
-            routeBuilder: CaloriCountPage(),
+          const SizedBox(height: 5),
+          Text(
+            "Jelajahi fitur tambahan yang membantu Anda",
+            style: AppTextStyles.montsReg1.copyWith(color: colorBlack),
           ),
-          FeatureCard(
-            title: "Article",
-            assetPath: "assets/icons/article.png",
-            routeBuilder: ArticleListPage(),
+          const SizedBox(height: 15),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              FeatureCard(
+                title: "BMI",
+                assetPath: "assets/icons/bmi.png",
+                routeBuilder: BMICountPage(),
+              ),
+              FeatureCard(
+                title: "Kalori Harian",
+                assetPath: "assets/icons/bmr.png",
+                routeBuilder: CaloriCountPage(),
+              ),
+              FeatureCard(
+                title: "Article",
+                assetPath: "assets/icons/article.png",
+                routeBuilder: ArticleListPage(),
+              ),
+            ],
           ),
         ],
       ),

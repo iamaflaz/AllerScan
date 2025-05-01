@@ -25,13 +25,11 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> _loadData() async {
-    // Panggil loadSelectedAllergies di sini setelah halaman Home dimuat
     await Provider.of<AllergyProvider>(
       context,
       listen: false,
     ).loadSelectedAllergies();
 
-    // Setelah data selesai dimuat, ubah status loading menjadi false
     setState(() {
       _isLoading = false;
     });
@@ -48,14 +46,14 @@ class _HomeState extends State<Home> {
           _isLoading
               ? Center(
                 child: CircularProgressIndicator(color: primaryColor),
-              ) // Menunggu loading
+              ) 
               : SingleChildScrollView(
                 child: Column(
                   children: [
                     HeaderSection(size: size),
-                    const SizedBox(height: 70),
-                    const FiturSection(),
+                    const SizedBox(height: 10),
                     const BannerSection(),
+                    const FiturSection(),
                     const BeritaSection(),
                   ],
                 ),

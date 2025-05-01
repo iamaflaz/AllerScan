@@ -1,6 +1,6 @@
 import 'package:allerscan/consts/colors.dart';
-import 'package:allerscan/consts/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class HeaderSection extends StatelessWidget {
   final Size size;
@@ -14,37 +14,30 @@ class HeaderSection extends StatelessWidget {
       children: <Widget>[
         Container(
           height: size.height * 0.2 - 2,
-          decoration: const BoxDecoration(color: secondaryColor),
-        ),
-        Positioned(
-          bottom: -72,
-          left: 0,
-          right: 0,
-          child: Image.asset(
-            "assets/gif/body.gif",
-            height: 250,
-            width: size.width,
-            fit: BoxFit.cover,
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 255, 195, 116),
           ),
         ),
-
         Positioned(
-          bottom: -76,
-          left: 20,
-          right: 20,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Fitur Lainnya",
-                style: AppTextStyles.poppinsBold3.copyWith(color: colorBlack),
-              ),
-              SizedBox(height: 4),
-              Text(
-                "Jelajahi fitur tambahan yang membantu Anda",
-                style: AppTextStyles.montsReg1.copyWith(color: colorBlack),
-              ),
-            ],
+          bottom: -100,
+          left: 0,
+          right: 40,
+          child: Image.asset(
+            "assets/images/bacck.png",
+            height: 250,
+            width: size.width,
+            fit: BoxFit.contain,
+          ),
+        ),
+        Positioned(
+          bottom: -190,
+          left: 0,
+          right: 0,
+          child: SvgPicture.asset(
+            "assets/images/kacang.svg",
+            height: 365,
+            width: size.width,
+            fit: BoxFit.cover,
           ),
         ),
       ],
