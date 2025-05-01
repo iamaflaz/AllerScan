@@ -39,7 +39,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
     return Scaffold(
       backgroundColor: colorWhite,
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: primaryColor,
         leading: IconButton(
           color: colorWhite,
           icon: const Icon(Icons.arrow_back),
