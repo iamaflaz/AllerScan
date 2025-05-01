@@ -36,7 +36,7 @@ class CaloriInputForm extends StatelessWidget {
         const SizedBox(height: 10),
         _buildInputField("Usia", ageController),
         const SizedBox(height: 10),
-        _buildActivityDropdown(),
+        _buildActivityDropdown(context),
         const SizedBox(height: 20),
         SizedBox(
           width: double.infinity,
@@ -86,17 +86,125 @@ class CaloriInputForm extends StatelessWidget {
     );
   }
 
-  Widget _buildActivityDropdown() {
-    return DropdownButtonFormField<double>(
-      value: activityFactor,
-      decoration: _dropdownDecoration("Tingkat Aktivitas"),
-      items: const [
-        DropdownMenuItem(value: 1.2, child: Text('Sangat sedikit aktivitas')),
-        DropdownMenuItem(value: 1.3, child: Text('Ringan (1-3x/minggu)')),
-        DropdownMenuItem(value: 1.55, child: Text('Sedang (3-5x/minggu)')),
-        DropdownMenuItem(value: 1.73, child: Text('Berat (6-7x/minggu)')),
+  Widget _buildActivityDropdown(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: DropdownButtonFormField<double>(
+            value: activityFactor,
+            decoration: _dropdownDecoration("Tingkat Aktivitas"),
+            items: const [
+              DropdownMenuItem(
+                value: 1.2,
+                child: Text('Sangat sedikit aktivitas'),
+              ),
+              DropdownMenuItem(value: 1.3, child: Text('Ringan (1-3x/minggu)')),
+              DropdownMenuItem(
+                value: 1.55,
+                child: Text('Sedang (3-5x/minggu)'),
+              ),
+              DropdownMenuItem(value: 1.73, child: Text('Berat (6-7x/minggu)')),
+            ],
+            onChanged: onActivityChanged,
+          ),
+        ),
+        const SizedBox(width: 8),
+        IconButton(
+          icon: const Icon(Icons.help_outline, color: primaryColor),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder:
+                  (context) => AlertDialog(
+                    backgroundColor: colorWhite,
+                    title: Text(
+                      'Penjelasan Tingkat Aktivitas',
+                      style: AppTextStyles.poppinsBold4.copyWith(
+                        color: primaryColor,
+                      ),
+                    ),
+                    content: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '1. Sangat sedikit aktivitas\n',
+                                  style: AppTextStyles.poppinsBold6.copyWith(
+                                    color: colorBlack,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text:
+                                      'Tingkat aktivitas ini mencerminkan gaya hidup yang sangat pasif, umumnya terjadi pada seseorang yang menghabiskan sebagian besar waktunya untuk duduk atau berbaring tanpa melakukan aktivitas fisik berarti. Contoh aktivitas dalam kategori ini termasuk duduk bekerja di depan komputer sepanjang hari, menonton televisi dalam waktu lama, atau rebahan tanpa kegiatan fisik lain.\n\n',
+                                  style: AppTextStyles.montsReg2.copyWith(
+                                    color: colorBlack,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '2. Ringan \n',
+                                  style: AppTextStyles.poppinsBold6.copyWith(
+                                    color: colorBlack,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text:
+                                      'Level aktivitas ringan menggambarkan seseorang yang melakukan aktivitas fisik ringan dalam jumlah terbatas, sekitar 1 hingga 3 kali dalam seminggu. Contohnya seperti berdiri cukup lama, mengetik, mengajar di kelas, atau pekerjaan ringan lain yang tidak terlalu menguras tenaga.\n\n',
+                                  style: AppTextStyles.montsReg2.copyWith(
+                                    color: colorBlack,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '3. Sedang \n',
+                                  style: AppTextStyles.poppinsBold6.copyWith(
+                                    color: colorBlack,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text:
+                                      'Tingkat sedang berlaku bagi individu yang aktif secara fisik sekitar 3 hingga 5 kali per minggu. Contohnya termasuk membersihkan rumah, berjalan kaki, berbelanja, atau bersepeda santai.\n\n',
+                                  style: AppTextStyles.montsReg2.copyWith(
+                                    color: colorBlack,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '4. Berat \n',
+                                  style: AppTextStyles.poppinsBold6.copyWith(
+                                    color: colorBlack,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text:
+                                      'Aktivitas berat mencakup pekerjaan fisik atau olahraga dengan intensitas tinggi yang dilakukan hampir setiap hari. Contohnya seperti mendaki, berkebun intensif, atau melakukan pekerjaan konstruksi.\n',
+                                  style: AppTextStyles.montsReg2.copyWith(
+                                    color: colorBlack,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(
+                          'Tutup',
+                          style: AppTextStyles.montsReg2.copyWith(
+                            color: colorBlack,
+                          ),
+                        ),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ],
+                  ),
+            );
+          },
+        ),
       ],
-      onChanged: onActivityChanged,
     );
   }
 

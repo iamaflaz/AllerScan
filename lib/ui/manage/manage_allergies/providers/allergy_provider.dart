@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AllergyProvider with ChangeNotifier {
-  final List<String> availableAllergies = ['Gluten', 'Kacang', 'Susu'];
+  final List<String> availableAllergies = ['Gluten', 'Kacang', 'Laktosa'];
   final List<String> _selectedAllergies = [];
   List<String> get selectedAllergies => _selectedAllergies;
   bool isSelected(String allergy) {
@@ -20,7 +20,7 @@ class AllergyProvider with ChangeNotifier {
       'Cornstarch',
     ],
     'Kacang': ['Peanut', 'Almond', 'Cashew'],
-    'Susu': ['Milk', 'Lactose', 'Cheese', 'Yogurt'],
+    'Laktosa': ['Milk', 'Lactose', 'Cheese', 'Yogurt'],
   };
 
   void toggleAllergy(String allergy) {
