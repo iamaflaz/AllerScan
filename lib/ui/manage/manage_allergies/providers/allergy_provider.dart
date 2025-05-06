@@ -23,7 +23,7 @@ class AllergyProvider with ChangeNotifier {
       'Cornstarch',
     ],
     'Kacang': ['Peanut', 'Almond', 'Cashew'],
-    'Laktosa': ['Milk', 'Lactose', 'Cheese', 'Yogurt'],
+    'Laktosa': ['Susu', 'Lactose', 'Cheese', 'Yogurt'],
     'Seafood': [
       'Udang',
       'Shrimp',

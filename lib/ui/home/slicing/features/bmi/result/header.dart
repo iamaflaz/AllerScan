@@ -14,34 +14,28 @@ class BMIHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     String imagePath;
 
-    switch (bmiCategory) {
-      case 'Underweight':
+    switch (bmiCategory.trim().toLowerCase()) {
+      case 'underweight':
         imagePath = 'assets/images/underweight.png';
         break;
-      case 'Ideal':
+      case 'ideal':
         imagePath = 'assets/images/ideal.png';
         break;
-      case 'Overweight':
+      case 'overweight':
         imagePath = 'assets/images/overweight.png';
         break;
-      case 'Obesitas':
+      case 'obesitas':
         imagePath = 'assets/images/obesitas.png';
         break;
       default:
-        imagePath = 'assets/images/ideal.png'; 
+        imagePath = 'assets/images/underweight.png';
         break;
     }
 
     return AnimatedOpacity(
       opacity: isContentVisible ? 1.0 : 0.0,
       duration: const Duration(seconds: 2),
-      child: Center(
-        child: Image.asset(
-          imagePath, 
-          width: 180,
-          height: 180,
-        ),
-      ),
+      child: Center(child: Image.asset(imagePath, width: 180, height: 180)),
     );
   }
 }
