@@ -128,7 +128,7 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                         ),
                         const SizedBox(height: 12),
                         const Text(
-                          'Oops!',
+                          'Oopss!',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
