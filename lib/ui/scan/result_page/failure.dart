@@ -11,165 +11,160 @@ class FailurePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset('assets/images/danger.png', height: 50),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Kandungan Alergen Terdeteksi !',
-                        style: AppTextStyles.poppinsBold4.copyWith(
-                          color: colorRed1,
-                        ),
+      padding: const EdgeInsets.only(top: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset('assets/images/danger.png', height: 50),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Kandungan Alergen Terdeteksi !',
+                      style: AppTextStyles.poppinsBold4.copyWith(
+                        color: colorRed1,
                       ),
-                      SizedBox(height: 4),
-                      Text(
-                        'Produk ini mengandung bahan yang dapat memicu alergi. Sebaiknya hindari konsumsi',
-                        style: AppTextStyles.montsReg2.copyWith(
-                          color: colorBlack,
-                        ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Produk ini mengandung bahan yang dapat memicu alergi. Sebaiknya hindari konsumsi.',
+                      style: AppTextStyles.montsReg2.copyWith(
+                        color: colorBlack,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            SizedBox(height: 24),
-            Text(
-              'KANDUNGAN PRODUK',
-              style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
-            ),
-            SizedBox(height: 12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children:
-                  detectedAllergies
-                      .map(
-                        (allergy) => Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: colorRed2,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            allergy,
-                            style: AppTextStyles.montsBold6.copyWith(
-                              color: colorRed1,
-                            ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          Text(
+            'KANDUNGAN PRODUK',
+            style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children:
+                detectedAllergies
+                    .map(
+                      (allergy) => Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colorRed2,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          allergy,
+                          style: AppTextStyles.montsBold6.copyWith(
+                            color: colorRed1,
                           ),
                         ),
-                      )
-                      .toList(),
-            ),
-
-            const SizedBox(height: 24),
-            Text(
-              'PENJELASAN LEBIH LANJUT',
-              style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
-            ),
-            SizedBox(height: 12),
-            FutureBuilder<List<AllergyWarning>>(
-              future: fetchAllergyWarnings(detectedAllergies),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else if (snapshot.hasData) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                        snapshot.data!.map((warning) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '• ${warning.allergy}',
-                                  style: AppTextStyles.poppinsBold5.copyWith(
-                                    color: primaryColor,
-                                  ),
-                                ),
-                                SizedBox(height: 6),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Reaksi: ',
-                                        style: AppTextStyles.montsBold6
-                                            .copyWith(color: colorBlack),
-                                      ),
-                                      TextSpan(
-                                        text: warning.reaction,
-                                        style: AppTextStyles.montsReg2.copyWith(
-                                          color: colorBlack,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 4),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Penanganan: ',
-                                        style: AppTextStyles.montsBold6
-                                            .copyWith(color: colorBlack),
-                                      ),
-                                      TextSpan(
-                                        text: warning.treatment,
-                                        style: AppTextStyles.montsReg2.copyWith(
-                                          color: colorBlack,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 4),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Obat: ',
-                                        style: AppTextStyles.montsBold6
-                                            .copyWith(color: colorBlack),
-                                      ),
-                                      TextSpan(
-                                        text: warning.medicine,
-                                        style: AppTextStyles.montsReg2.copyWith(
-                                          color: colorBlack,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                  );
-                } else {
-                  return Text('Tidak ada data.');
+                      ),
+                    )
+                    .toList(),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            'PENJELASAN LEBIH LANJUT',
+            style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
+          ),
+          const SizedBox(height: 12),
+          FutureBuilder<List<AllergyWarning>>(
+            future: fetchAllergyWarnings(detectedAllergies),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                // Langsung tampilkan UI error umum tanpa cek jenis error
+                return _buildGeneralErrorUI(snapshot.error.toString());
+              } else if (snapshot.hasData) {
+                if (snapshot.data!.isEmpty) {
+                  return const Text('Tidak ada data.');
                 }
-              },
-            ),
-          ],
-        ),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children:
+                      snapshot.data!.map((warning) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '• ${warning.allergy}',
+                                style: AppTextStyles.poppinsBold5.copyWith(
+                                  color: primaryColor,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              _buildRichText('Reaksi: ', warning.reaction),
+                              _buildRichText('Penanganan: ', warning.treatment),
+                              _buildRichText('Obat: ', warning.medicine),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                );
+              } else {
+                return const Text('Tidak ada data.');
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRichText(String label, String content) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: label,
+            style: AppTextStyles.montsBold6.copyWith(color: colorBlack),
+          ),
+          TextSpan(
+            text: content,
+            style: AppTextStyles.montsReg2.copyWith(color: colorBlack),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGeneralErrorUI(String errorMessage) {
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 20),
+          Image.asset('assets/images/no_internet.png', height: 150),
+          const SizedBox(height: 12),
+          Text(
+            'Tidak ada koneksi internet',
+            style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Silakan periksa koneksi Anda dan coba lagi.',
+            style: AppTextStyles.montsReg2.copyWith(color: colorBlack),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+        ],
       ),
     );
   }
