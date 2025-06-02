@@ -1,6 +1,7 @@
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/result/macro_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CaloriMacroSection extends StatelessWidget {
@@ -27,9 +28,9 @@ class CaloriMacroSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CaloriMacroCard(label: "Karbohidrat", value: "${macros['carbs']} gram"),
-            CaloriMacroCard(label: "Protein", value: "${macros['protein']} gram"),
-            CaloriMacroCard(label: "Lemak", value: "${macros['fat']} gram"),
+            CaloriMacroCard(label: 'carbohydrates'.tr(), value: "${macros['carbs']} gram"),
+            CaloriMacroCard(label: 'protein'.tr(), value: "${macros['protein']} gram"),
+            CaloriMacroCard(label: 'fat'.tr(), value: "${macros['fat']} gram"),
           ],
         ),
       ],

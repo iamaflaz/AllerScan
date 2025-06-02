@@ -1,7 +1,9 @@
 import 'package:allerscan/consts/colors.dart';
+import 'package:allerscan/consts/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:allerscan/ui/manage/manage_allergies/providers/allergy_provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ManageAllergiesPage extends StatefulWidget {
   const ManageAllergiesPage({super.key});
@@ -25,27 +27,46 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
   @override
   Widget build(BuildContext context) {
     final allergyProvider = Provider.of<AllergyProvider>(context);
-    final orange = Colors.orange;
+    final orange = primaryColor;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Kelola Alergi',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        title: Text(
+          'manage_allergies_title'.tr(),
+          style: AppTextStyles.poppinsBold2.copyWith(color: colorWhite),
         ),
         centerTitle: true,
-        backgroundColor: orange,
+        backgroundColor: primaryColor,
+        actions: [
+          PopupMenuButton<Locale>(
+            icon: const Icon(Icons.language, color: colorWhite),
+            onSelected: (Locale locale) {
+              context.setLocale(locale);
+            },
+            itemBuilder:
+                (BuildContext context) => <PopupMenuEntry<Locale>>[
+                  PopupMenuItem<Locale>(
+                    value: const Locale('en'),
+                    child: const Text('English'),
+                  ),
+                  PopupMenuItem<Locale>(
+                    value: const Locale('id'),
+                    child: const Text('Bahasa Indonesia'),
+                  ),
+                ],
+          ),
+        ],
       ),
-      backgroundColor: const Color(0xFFF6F7FB),
+      backgroundColor: colorWhite,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Pilih Kategori Alergi:',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              Text(
+                'select_allergies_title'.tr(),
+                style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
               ),
               const SizedBox(height: 8),
               ListView.builder(
@@ -61,11 +82,11 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 6),
                       decoration: BoxDecoration(
-                        color: selected ? orange : Colors.white,
+                        color: selected ? orange : colorWhite,
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black12,
+                            color: colorGray2,
                             blurRadius: 4,
                             offset: const Offset(0, 2),
                           ),
@@ -88,15 +109,15 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                               title: Text(
                                 allergy,
                                 style: TextStyle(
-                                  color: selected ? Colors.white : Colors.black,
+                                  color: selected ? colorWhite : colorBlack,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                               trailing: Checkbox(
                                 value: selected,
-                                activeColor: Colors.white,
-                                checkColor: orange,
-                                side: BorderSide(color: orange),
+                                activeColor: colorWhite,
+                                checkColor: primaryColor,
+                                side: BorderSide(color: primaryColor),
                                 onChanged:
                                     (_) =>
                                         allergyProvider.toggleAllergy(allergy),
@@ -110,9 +131,9 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                 },
               ),
               const SizedBox(height: 24),
-              const Text(
-                'Turunan Alergi Yang Dipilih:',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              Text(
+                'select_allergies_subtitle'.tr(),
+                style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
               ),
               const SizedBox(height: 8),
               if (allergyProvider.selectedAllergies.isEmpty)
@@ -136,8 +157,8 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                           ),
                         ),
                         const SizedBox(height: 6),
-                        const Text(
-                          'Belum ada alergi yang kamu pilih nih.\nYuk pilih dulu biar aman~',
+                        Text(
+                          'no_allergies_choosen'.tr(),
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
@@ -162,11 +183,11 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                       margin: const EdgeInsets.only(bottom: 16),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: colorWhite,
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black12,
+                            color: colorGray2,
                             blurRadius: 4,
                             offset: const Offset(0, 2),
                           ),
@@ -198,13 +219,15 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                                     ),
                                     decoration: BoxDecoration(
                                       color:
-                                          isChildSelected ? orange : colorWhite,
+                                          isChildSelected
+                                              ? primaryColor
+                                              : colorWhite,
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
                                         color:
                                             isChildSelected
                                                 ? orange
-                                                : Colors.grey.shade400,
+                                                : colorGray2,
                                       ),
                                     ),
                                     child: Row(
@@ -215,8 +238,8 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                                           style: TextStyle(
                                             color:
                                                 isChildSelected
-                                                    ? Colors.white
-                                                    : Colors.black87,
+                                                    ? colorWhite
+                                                    : colorBlack,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -231,8 +254,8 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                                                 : Icons.add_circle,
                                             color:
                                                 isChildSelected
-                                                    ? Colors.white
-                                                    : Colors.orange,
+                                                    ? colorWhite
+                                                    : primaryColor,
                                             size: 20,
                                           ),
                                         ),

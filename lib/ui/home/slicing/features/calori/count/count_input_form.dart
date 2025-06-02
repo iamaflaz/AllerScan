@@ -1,6 +1,7 @@
 import 'package:allerscan/consts/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CaloriInputForm extends StatelessWidget {
   final TextEditingController weightController;
@@ -26,17 +27,108 @@ class CaloriInputForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> genderKeys = ['male', 'female'];
+    final Map<double, String> activityOptions = {
+      1.2: 'activity.very_low',
+      1.3: 'activity.light',
+      1.55: 'activity.moderate',
+      1.73: 'activity.high',
+    };
+
     return Column(
       children: [
-        _buildDropdownGender(),
+        DropdownButtonFormField<String>(
+          value: gender,
+          decoration: _dropdownDecoration('gender_title'.tr()),
+          items: genderKeys.map((key) {
+            return DropdownMenuItem(
+              value: key,
+              child: Text('gender.$key'.tr()),
+            );
+          }).toList(),
+          onChanged: onGenderChanged,
+        ),
         const SizedBox(height: 10),
-        _buildInputField("Berat Badan (kg)", weightController),
+        _buildInputField('weight_title'.tr(), weightController),
         const SizedBox(height: 10),
-        _buildInputField("Tinggi Badan (cm)", heightController),
+        _buildInputField('height_title'.tr(), heightController),
         const SizedBox(height: 10),
-        _buildInputField("Usia", ageController),
+        _buildInputField('ages_title'.tr(), ageController),
         const SizedBox(height: 10),
-        _buildActivityDropdown(context),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: DropdownButtonFormField<double>(
+                value: activityFactor,
+                decoration: _dropdownDecoration('activity_title'.tr()),
+                items: activityOptions.entries.map((entry) {
+                  return DropdownMenuItem(
+                    value: entry.key,
+                    child: Text(entry.value.tr()),
+                  );
+                }).toList(),
+                onChanged: onActivityChanged,
+              ),
+            ),
+            const SizedBox(width: 8),
+            IconButton(
+              icon: const Icon(Icons.help_outline, color: primaryColor),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    backgroundColor: colorWhite,
+                    title: Text(
+                      'activity_explanation_title'.tr(),
+                      style: AppTextStyles.poppinsBold4.copyWith(
+                        color: primaryColor,
+                      ),
+                    ),
+                    content: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildActivityExplanation(
+                            context,
+                            'activity.explanation.very_low_title'.tr(),
+                            'activity.explanation.very_low_desc'.tr(),
+                          ),
+                          _buildActivityExplanation(
+                            context,
+                            'activity.explanation.light_title'.tr(),
+                            'activity.explanation.light_desc'.tr(),
+                          ),
+                          _buildActivityExplanation(
+                            context,
+                            'activity.explanation.moderate_title'.tr(),
+                            'activity.explanation.moderate_desc'.tr(),
+                          ),
+                          _buildActivityExplanation(
+                            context,
+                            'activity.explanation.high_title'.tr(),
+                            'activity.explanation.high_desc'.tr(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(
+                          'button_close'.tr(),
+                          style: AppTextStyles.montsReg2.copyWith(
+                            color: colorBlack,
+                          ),
+                        ),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
         const SizedBox(height: 20),
         SizedBox(
           width: double.infinity,
@@ -45,7 +137,7 @@ class CaloriInputForm extends StatelessWidget {
             style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
             onPressed: onCalculatePressed,
             child: Text(
-              'Hitung',
+              'button_check'.tr(),
               style: AppTextStyles.montsBold5.copyWith(color: colorWhite),
             ),
           ),
@@ -73,141 +165,25 @@ class CaloriInputForm extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildDropdownGender() {
-    return DropdownButtonFormField<String>(
-      value: gender,
-      decoration: _dropdownDecoration("Jenis Kelamin"),
-      items: const [
-        DropdownMenuItem(value: 'Laki-laki', child: Text('Laki-laki')),
-        DropdownMenuItem(value: 'Perempuan', child: Text('Perempuan')),
-      ],
-      onChanged: onGenderChanged,
+  Widget _buildActivityExplanation(BuildContext context, String title, String description) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: title,
+              style: AppTextStyles.poppinsBold6.copyWith(color: colorBlack),
+            ),
+            TextSpan(
+              text: description,
+              style: AppTextStyles.montsReg2.copyWith(color: colorBlack),
+            ),
+          ],
+        ),
+      ),
     );
   }
-
-  Widget _buildActivityDropdown(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: DropdownButtonFormField<double>(
-            value: activityFactor,
-            decoration: _dropdownDecoration("Tingkat Aktivitas"),
-            items: const [
-              DropdownMenuItem(
-                value: 1.2,
-                child: Text('Sangat sedikit aktivitas'),
-              ),
-              DropdownMenuItem(value: 1.3, child: Text('Ringan (1-3x/minggu)')),
-              DropdownMenuItem(
-                value: 1.55,
-                child: Text('Sedang (3-5x/minggu)'),
-              ),
-              DropdownMenuItem(value: 1.73, child: Text('Berat (6-7x/minggu)')),
-            ],
-            onChanged: onActivityChanged,
-          ),
-        ),
-        const SizedBox(width: 8),
-        IconButton(
-          icon: const Icon(Icons.help_outline, color: primaryColor),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder:
-                  (context) => AlertDialog(
-                    backgroundColor: colorWhite,
-                    title: Text(
-                      'Penjelasan Tingkat Aktivitas',
-                      style: AppTextStyles.poppinsBold4.copyWith(
-                        color: primaryColor,
-                      ),
-                    ),
-                    content: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: '1. Sangat sedikit aktivitas\n',
-                                  style: AppTextStyles.poppinsBold6.copyWith(
-                                    color: colorBlack,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text:
-                                      'Tingkat aktivitas ini mencerminkan gaya hidup yang sangat pasif, umumnya terjadi pada seseorang yang menghabiskan sebagian besar waktunya untuk duduk atau berbaring tanpa melakukan aktivitas fisik berarti. Contoh aktivitas dalam kategori ini termasuk duduk bekerja di depan komputer sepanjang hari, menonton televisi dalam waktu lama, atau rebahan tanpa kegiatan fisik lain.\n\n',
-                                  style: AppTextStyles.montsReg2.copyWith(
-                                    color: colorBlack,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: '2. Ringan \n',
-                                  style: AppTextStyles.poppinsBold6.copyWith(
-                                    color: colorBlack,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text:
-                                      'Level aktivitas ringan menggambarkan seseorang yang melakukan aktivitas fisik ringan dalam jumlah terbatas, sekitar 1 hingga 3 kali dalam seminggu. Contohnya seperti berdiri cukup lama, mengetik, mengajar di kelas, atau pekerjaan ringan lain yang tidak terlalu menguras tenaga.\n\n',
-                                  style: AppTextStyles.montsReg2.copyWith(
-                                    color: colorBlack,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: '3. Sedang \n',
-                                  style: AppTextStyles.poppinsBold6.copyWith(
-                                    color: colorBlack,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text:
-                                      'Tingkat sedang berlaku bagi individu yang aktif secara fisik sekitar 3 hingga 5 kali per minggu. Contohnya termasuk membersihkan rumah, berjalan kaki, berbelanja, atau bersepeda santai.\n\n',
-                                  style: AppTextStyles.montsReg2.copyWith(
-                                    color: colorBlack,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: '4. Berat \n',
-                                  style: AppTextStyles.poppinsBold6.copyWith(
-                                    color: colorBlack,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text:
-                                      'Aktivitas berat mencakup pekerjaan fisik atau olahraga dengan intensitas tinggi yang dilakukan hampir setiap hari. Contohnya seperti mendaki, berkebun intensif, atau melakukan pekerjaan konstruksi.\n',
-                                  style: AppTextStyles.montsReg2.copyWith(
-                                    color: colorBlack,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    actions: [
-                      TextButton(
-                        child: Text(
-                          'Tutup',
-                          style: AppTextStyles.montsReg2.copyWith(
-                            color: colorBlack,
-                          ),
-                        ),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                    ],
-                  ),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
   InputDecoration _dropdownDecoration(String label) {
     return InputDecoration(
       labelText: label,

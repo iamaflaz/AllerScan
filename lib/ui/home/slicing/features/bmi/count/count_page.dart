@@ -3,6 +3,7 @@ import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/count/count_app_bar.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/count/count_input_form.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/result_page.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BMICountPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class BMICountPage extends StatefulWidget {
 class _BMICountPageState extends State<BMICountPage> {
   final TextEditingController _heightController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
-  String _selectedGender = 'Laki-laki';
+  String _selectedGender = 'male'; 
 
   void _calculateBMI() {
     final double? height = double.tryParse(_heightController.text);
@@ -28,14 +29,16 @@ class _BMICountPageState extends State<BMICountPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder:
-              (context) => BMIResultPage(bmi: bmi, gender: _selectedGender),
+          builder: (context) => BMIResultPage(
+            bmi: bmi,
+            gender: _selectedGender, 
+          ),
         ),
       );
     } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Masukkan data yang valid')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('validation'.tr())),
+      );
     }
   }
 
@@ -57,15 +60,15 @@ class _BMICountPageState extends State<BMICountPage> {
             ),
             const SizedBox(height: 4),
             Text(
-              'Yuk, cek BMI-mu!',
+              'count_bmi_title'.tr(),
               style: AppTextStyles.poppinsBold2.copyWith(color: colorBlack),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                'Apakah berat badanmu sudah ideal sesuai tinggi badan?',
+                'count_bmi_subtitle'.tr(),
                 style: AppTextStyles.montsReg1.copyWith(color: colorBlack),
                 textAlign: TextAlign.center,
               ),

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CaloriCustomAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -25,7 +26,7 @@ class CaloriCustomAppBar extends StatelessWidget
         },
       ),
       title: Text(
-        'Kalori Harian',
+        'calories_count_app_bar'.tr(),
         style: AppTextStyles.poppinsBold2.copyWith(color: colorWhite),
       ),
       centerTitle: true,

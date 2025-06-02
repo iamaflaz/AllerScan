@@ -2,6 +2,7 @@ import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/ui/home/slicing/article/widget/article_card.dart';
 import 'package:allerscan/ui/home/slicing/features/article/service.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BeritaSection extends StatefulWidget {
@@ -43,9 +44,9 @@ class _BeritaSectionState extends State<BeritaSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Seputar Berita", style: AppTextStyles.poppinsBold3.copyWith(color: colorBlack)),
+          Text('news_section_title'.tr(), style: AppTextStyles.poppinsBold3.copyWith(color: colorBlack)),
           const SizedBox(height: 4),
-          Text("Tetap terinformasi dengan berita terbaru", style: AppTextStyles.montsReg1.copyWith(color: colorBlack)),
+          Text('news_section_subtitle'.tr(), style: AppTextStyles.montsReg1.copyWith(color: colorBlack)),
           const SizedBox(height: 16),
           isLoading
               ? const Center(child: CircularProgressIndicator())

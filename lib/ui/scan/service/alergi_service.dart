@@ -17,6 +17,7 @@ class AllergyWarning {
 
 Future<List<AllergyWarning>> fetchAllergyWarnings(
   List<String> allergies,
+  String localeCode,  // misal 'id' atau 'en'
 ) async {
   final apiKey = 'AIzaSyCtAi5Q-_bmGnv5Yjm9UiJG_DAjN2nZ_JE';
   final url = Uri.parse(
@@ -25,13 +26,23 @@ Future<List<AllergyWarning>> fetchAllergyWarnings(
 
   List<AllergyWarning> warnings = [];
 
+  // Buat map prompt per bahasa, contoh:
+  final prompts = {
+    'id': '''Analisis alergi terhadap bahan "\$allergy". Tolong jawab dengan format persis seperti ini:
+Reaksi: ...
+Penanganan: ...
+Obat: ...
+Batasi masing-masing poin maksimal 50 kata. Jangan gunakan bullet.''',
+    'en': '''Analyze allergy for ingredient "\$allergy". Please answer exactly in this format:
+Reaction: ...
+Treatment: ...
+Medicine: ...
+Limit each point to maximum 50 words. Do not use bullet points.''',
+  };
+
   for (String allergy in allergies) {
-    final prompt =
-        '''Analisis alergi terhadap bahan "$allergy". Tolong jawab dengan format persis seperti ini:
-    Reaksi: ...
-    Penanganan: ...
-    Obat: ...
-    Batasi masing-masing poin maksimal 50 kata. Jangan gunakan bullet.''';
+    final prompt = prompts[localeCode]?.replaceAll('\$allergy', allergy) ??
+        prompts['en']!.replaceAll('\$allergy', allergy);
 
     final response = await http.post(
       url,
@@ -52,21 +63,21 @@ Future<List<AllergyWarning>> fetchAllergyWarnings(
       final text = data['candidates'][0]['content']['parts'][0]['text'] ?? '';
 
       final reactionMatch = RegExp(
-        r'Reaksi\s*:\s*(.+)',
+        r'(Reaksi|Reaction)\s*:\s*(.+)',
         caseSensitive: false,
       ).firstMatch(text);
       final treatmentMatch = RegExp(
-        r'Penanganan\s*:\s*(.+)',
+        r'(Penanganan|Treatment)\s*:\s*(.+)',
         caseSensitive: false,
       ).firstMatch(text);
       final medicineMatch = RegExp(
-        r'Obat\s*:\s*(.+)',
+        r'(Obat|Medicine)\s*:\s*(.+)',
         caseSensitive: false,
       ).firstMatch(text);
 
-      final reaction = reactionMatch?.group(1)?.trim() ?? 'Tidak ditemukan';
-      final treatment = treatmentMatch?.group(1)?.trim() ?? 'Tidak ditemukan';
-      final medicine = medicineMatch?.group(1)?.trim() ?? 'Tidak ditemukan';
+      final reaction = reactionMatch?.group(2)?.trim() ?? 'Tidak ditemukan';
+      final treatment = treatmentMatch?.group(2)?.trim() ?? 'Tidak ditemukan';
+      final medicine = medicineMatch?.group(2)?.trim() ?? 'Tidak ditemukan';
 
       warnings.add(
         AllergyWarning(
@@ -90,3 +101,4 @@ Future<List<AllergyWarning>> fetchAllergyWarnings(
 
   return warnings;
 }
+

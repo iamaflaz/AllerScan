@@ -4,6 +4,7 @@ import 'package:allerscan/ui/home/slicing/features/calori/count/count_input_form
 import 'package:allerscan/ui/home/slicing/features/calori/result/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CaloriCountPage extends StatefulWidget {
   const CaloriCountPage({super.key});
@@ -17,10 +18,8 @@ class _CaloriCountPageState extends State<CaloriCountPage> {
   final TextEditingController heightController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
 
-  String gender = 'Laki-laki';
+  String gender = 'male'; // default key
   double activityFactor = 1.2;
-  double bmr = 0.0;
-  double tdee = 0.0;
 
   void calculateCalori() {
     final double weight = double.tryParse(weightController.text) ?? 0;
@@ -28,13 +27,14 @@ class _CaloriCountPageState extends State<CaloriCountPage> {
     final int age = int.tryParse(ageController.text) ?? 0;
 
     if (weight > 0 && height > 0 && age > 0) {
-      if (gender == 'Laki-laki') {
+      double bmr = 0.0;
+      if (gender == 'male') {
         bmr = 13.7 * weight + 5 * height - 6.8 * age + 65;
       } else {
         bmr = 9.6 * weight + 1.8 * height - 4.7 * age + 655;
       }
 
-      tdee = bmr * activityFactor;
+      double tdee = bmr * activityFactor;
 
       Navigator.push(
         context,
@@ -43,9 +43,9 @@ class _CaloriCountPageState extends State<CaloriCountPage> {
         ),
       );
     } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Masukkan data yang valid')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('validation'.tr())),
+      );
     }
   }
 
@@ -67,31 +67,31 @@ class _CaloriCountPageState extends State<CaloriCountPage> {
             ),
             const SizedBox(height: 4),
             Text(
-              'Hitung BMR dan TDEE-mu Sekarang!',
+              'count_calori_title'.tr(),
               style: AppTextStyles.poppinsBold2.copyWith(color: colorBlack),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                'Ketahui kebutuhan energimu (BMR) dan berapa banyak kalori yang kamu butuhkan per hari berdasarkan aktivitasmu (TDEE).',
+                'count_calori_subtitle'.tr(),
                 style: AppTextStyles.montsReg1.copyWith(color: colorBlack),
                 textAlign: TextAlign.center,
               ),
             ),
             const SizedBox(height: 16),
             CaloriInputForm(
-              onGenderChanged: (value) {
-                setState(() {
-                  gender = value!;
-                });
-              },
               weightController: weightController,
               heightController: heightController,
               ageController: ageController,
               gender: gender,
               activityFactor: activityFactor,
+              onGenderChanged: (value) {
+                setState(() {
+                  gender = value!;
+                });
+              },
               onActivityChanged: (value) {
                 setState(() {
                   activityFactor = value!;

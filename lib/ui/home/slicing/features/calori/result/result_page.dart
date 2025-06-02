@@ -3,6 +3,7 @@ import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/count/count_page.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/result/macro_section.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/result/tips.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/ui/navbar/navbar.dart';
 
@@ -46,7 +47,7 @@ class CaloriResultPage extends StatelessWidget {
           },
         ),
         title: Text(
-          'Hasil Kalori Harian',
+          'result_calori_title'.tr(),
           style: AppTextStyles.poppinsBold2.copyWith(color: colorWhite),
         ),
         centerTitle: true,
@@ -58,30 +59,26 @@ class CaloriResultPage extends StatelessWidget {
           children: [
             const SizedBox(height: 16),
             CaloriTipsCard(
-              title: "👨‍⚕️ Hasil BMR Anda",
-              value: "${bmr.round()} kcal/hari",
-              description:
-                  "*BMR adalah jumlah kalori minimum yang dibutuhkan tubuhmu untuk menjalankan fungsi dasar seperti bernapas, menjaga suhu tubuh, dan detak jantung saat kamu tidak melakukan aktivitas apapun (misalnya tidur). Kalori ini penting agar tubuh bisa tetap hidup dan bekerja dengan baik meski tanpa aktivitas fisik.",
+              title: 'result_bmr_title'.tr(),
+              value: "${bmr.round()} kcal/day",
+              description: 'result_bmr_subtitle'.tr(),
             ),
             const SizedBox(height: 16),
             CaloriTipsCard(
-              title: "🏃‍♂️ Hasil TDEE Anda",
-              value: "${tdee.round()} kcal/hari",
-              description:
-                  "*TDEE adalah jumlah total kalori yang kamu butuhkan dalam sehari berdasarkan aktivitas fisikmu, mulai dari berjalan, belajar, berolahraga, hingga aktivitas ringan lainnya.Dengan tahu TDEE, kamu bisa menentukan apakah ingin menambah berat badan (surplus kalori), menurunkan berat badan (defisit kalori), atau menjaga berat badan (kalori seimbang).",
+              title: 'result_tdee_title'.tr(),
+              value: "${tdee.round()} kcal/day",
+              description: 'result_tdee_subtitle'.tr(),
             ),
             const SizedBox(height: 24),
             CaloriMacroSection(
               title: "Bulking",
-              subtitle:
-                  "Bulking dilakukan saat kamu ingin meningkatkan massa otot atau berat badan. Asupan kalori akan lebih tinggi dari kebutuhan harian agar tubuh memiliki cukup energi untuk membentuk otot.",
+              subtitle: 'bulking_subtitle'.tr(),
               macros: bulkingMacros,
             ),
             const SizedBox(height: 24),
             CaloriMacroSection(
               title: "Cutting",
-              subtitle:
-                  "Cutting dilakukan untuk menurunkan berat badan atau kadar lemak tubuh. Kalori yang dikonsumsi akan dikurangi agar tubuh menggunakan cadangan lemak sebagai sumber energi.",
+              subtitle: 'cutting_subtitle'.tr(),
               macros: cuttingMacros,
             ),
             const SizedBox(height: 30),
@@ -102,7 +99,7 @@ class CaloriResultPage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  "Cek Lagi",
+                  'button_check_again'.tr(),
                   style: AppTextStyles.montsBold5.copyWith(color: colorWhite),
                 ),
               ),
@@ -127,7 +124,7 @@ class CaloriResultPage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  "Kembali",
+                  'button_back'.tr(),
                   style: AppTextStyles.montsBold5.copyWith(color: primaryColor),
                 ),
               ),

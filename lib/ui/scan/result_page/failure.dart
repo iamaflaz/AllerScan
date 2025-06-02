@@ -2,6 +2,7 @@ import 'package:allerscan/ui/scan/service/alergi_service.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FailurePage extends StatelessWidget {
   final List<String> detectedAllergies;
@@ -25,14 +26,14 @@ class FailurePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Kandungan Alergen Terdeteksi !',
+                      'allergy_detected_title'.tr(),
                       style: AppTextStyles.poppinsBold4.copyWith(
                         color: colorRed1,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Produk ini mengandung bahan yang dapat memicu alergi. Sebaiknya hindari konsumsi.',
+                      'allergy_detected_desc'.tr(),
                       style: AppTextStyles.montsReg2.copyWith(
                         color: colorBlack,
                       ),
@@ -44,7 +45,7 @@ class FailurePage extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            'KANDUNGAN PRODUK',
+            'product_content'.tr(),
             style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
           ),
           const SizedBox(height: 12),
@@ -75,21 +76,23 @@ class FailurePage extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            'PENJELASAN LEBIH LANJUT',
+            'further_explanation'.tr(),
             style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
           ),
           const SizedBox(height: 12),
           FutureBuilder<List<AllergyWarning>>(
-            future: fetchAllergyWarnings(detectedAllergies),
+            future: fetchAllergyWarnings(
+              detectedAllergies,
+              context.locale.languageCode,
+            ),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                // Langsung tampilkan UI error umum tanpa cek jenis error
-                return _buildGeneralErrorUI(snapshot.error.toString());
+                return _buildGeneralErrorUI(context, snapshot.error.toString());
               } else if (snapshot.hasData) {
                 if (snapshot.data!.isEmpty) {
-                  return const Text('Tidak ada data.');
+                  return Text('no_data'.tr());
                 }
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,16 +110,28 @@ class FailurePage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 6),
-                              _buildRichText('Reaksi: ', warning.reaction),
-                              _buildRichText('Penanganan: ', warning.treatment),
-                              _buildRichText('Obat: ', warning.medicine),
+                              _buildRichText(
+                                context,
+                                'reaction'.tr(),
+                                warning.reaction,
+                              ),
+                              _buildRichText(
+                                context,
+                                'treatment'.tr(),
+                                warning.treatment,
+                              ),
+                              _buildRichText(
+                                context,
+                                'medicine'.tr(),
+                                warning.medicine,
+                              ),
                             ],
                           ),
                         );
                       }).toList(),
                 );
               } else {
-                return const Text('Tidak ada data.');
+                return Text('no_data'.tr());
               }
             },
           ),
@@ -125,7 +140,7 @@ class FailurePage extends StatelessWidget {
     );
   }
 
-  Widget _buildRichText(String label, String content) {
+  Widget _buildRichText(BuildContext context, String label, String content) {
     return Text.rich(
       TextSpan(
         children: [
@@ -142,7 +157,7 @@ class FailurePage extends StatelessWidget {
     );
   }
 
-  Widget _buildGeneralErrorUI(String errorMessage) {
+  Widget _buildGeneralErrorUI(BuildContext context, String errorMessage) {
     return Align(
       alignment: Alignment.center,
       child: Column(
@@ -153,13 +168,13 @@ class FailurePage extends StatelessWidget {
           Image.asset('assets/images/no_internet.png', height: 150),
           const SizedBox(height: 12),
           Text(
-            'Tidak ada koneksi internet',
+            'no_internet_title'.tr(),
             style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 4),
           Text(
-            'Silakan periksa koneksi Anda dan coba lagi.',
+            'no_internet_desc'.tr(),
             style: AppTextStyles.montsReg2.copyWith(color: colorBlack),
             textAlign: TextAlign.center,
           ),

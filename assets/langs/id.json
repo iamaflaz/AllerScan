@@ -1,0 +1,94 @@
+{
+  "button_check": "Cek",
+  "button_check_again": "Cek Lagi",
+  "button_back": "Kembali ke Menu",
+  "button_close": "Tutup",
+
+  "news_section_title": "Seputar Berita",
+  "news_section_subtitle": "Tetap terinformasi dengan berita terbaru",
+  "features_section_title": "Fitur Lainnya",
+  "features_section_subtitle": "Jelajahi fitur tambahan yang membantu Anda",
+
+  "height_title": "Tinggi Badan (cm) ",
+  "weight_title": "Berat Badan (kg)",
+  "ages_title": "Usia",
+  "gender_title": "Jenis Kelamin",
+  "gender": {
+    "male": "Laki-laki",
+    "female": "Perempuan"
+  },
+
+  "validation": "Masukkan data yang valid",
+  "count_bmi_title": "Yuk, cek BMI-mu!",
+  "count_bmi_subtitle": "Apakah berat badanmu sudah ideal sesuai tinggi badan?",
+  "indicator_bmi": "Bmi-mu adalah :",
+  "result_bmi_title": "Hasil BMI",
+  "bmi": {
+    "underweight": {
+      "headline": "📢 Berat badanmu di bawah normal 😕",
+      "sub": "Ayo jaga pola makan dan tambah asupan nutrisi, biar tubuh tetap kuat dan sehat ya!"
+    },
+    "ideal": {
+      "headline": "📢 Yeay! Berat badanmu ideal 😄",
+      "sub": "Pertahankan pola makan seimbang dan gaya hidup sehat ya!"
+    },
+    "overweight": {
+      "headline": "📢 Kamu sedikit kelebihan berat badan!",
+      "sub": "Yuk, mulai lebih aktif bergerak dan atur pola makan biar kembali ideal!"
+    },
+    "obesitas": {
+      "headline": "📢 Berat badanmu termasuk obesitas 😟",
+      "sub": "Konsultasi ke ahli gizi bisa membantu, yuk mulai dari langkah kecil yang konsisten 💪"
+    }
+  },
+
+  "calories_count_app_bar": "Kalori Harian",
+  "count_calori_title": "Hitung Kalori Harianmu",
+  "count_calori_subtitle": "Masukkan detail tubuhmu untuk mengetahui BMR & TDEE kamu",
+  "activity_title": "Tingkat Aktivitas",
+  "activity": {
+    "very_low": "Sangat rendah",
+    "light": "Ringan (1-3x/minggu)",
+    "moderate": "Sedang (3-5x/minggu)",
+    "high": "Berat (6-7x/minggu)",
+    "explanation": {
+      "very_low_title": "1. Sangat sedikit aktivitas\n",
+      "very_low_desc": "Tingkat aktivitas ini mencerminkan gaya hidup yang sangat pasif, umumnya terjadi pada seseorang yang menghabiskan sebagian besar waktunya untuk duduk atau berbaring tanpa melakukan aktivitas fisik berarti. Contoh aktivitas dalam kategori ini termasuk duduk bekerja di depan komputer sepanjang hari, menonton televisi dalam waktu lama, atau rebahan tanpa kegiatan fisik lain.\n\n",
+      "light_title": "2. Ringan\n",
+      "light_desc": "Level aktivitas ringan menggambarkan seseorang yang melakukan aktivitas fisik ringan dalam jumlah terbatas, sekitar 1 hingga 3 kali dalam seminggu. Contohnya seperti berdiri cukup lama, mengetik, mengajar di kelas, atau pekerjaan ringan lain yang tidak terlalu menguras tenaga.\n\n",
+      "moderate_title": "3. Sedang\n",
+      "moderate_desc": "Tingkat sedang berlaku bagi individu yang aktif secara fisik sekitar 3 hingga 5 kali per minggu. Contohnya termasuk membersihkan rumah, berjalan kaki, berbelanja, atau bersepeda santai.\n\n",
+      "high_title": "4. Berat\n",
+      "high_desc": "Aktivitas berat mencakup pekerjaan fisik atau olahraga dengan intensitas tinggi yang dilakukan hampir setiap hari. Contohnya seperti mendaki, berkebun intensif, atau melakukan pekerjaan konstruksi.\n"
+    }
+  },
+  "activity_explanation_title": "Penjelasan Tingkat Aktivitas",
+
+  "result_calori_title": "Hasil Kalori Harian",
+  "result_bmr_title": "👨‍⚕️ Hasil BMR Anda",
+  "result_bmr_subtitle": "*BMR adalah jumlah kalori minimum yang dibutuhkan tubuhmu untuk menjalankan fungsi dasar seperti bernapas, menjaga suhu tubuh, dan detak jantung saat kamu tidak melakukan aktivitas apapun (misalnya tidur). Kalori ini penting agar tubuh bisa tetap hidup dan bekerja dengan baik meski tanpa aktivitas fisik.",
+  "result_tdee_title": "🏃‍♂️ Hasil TDEE Anda",
+  "result_tdee_subtitle": "*TDEE adalah jumlah total kalori yang kamu butuhkan dalam sehari berdasarkan aktivitas fisikmu, mulai dari berjalan, belajar, berolahraga, hingga aktivitas ringan lainnya.Dengan tahu TDEE, kamu bisa menentukan apakah ingin menambah berat badan (surplus kalori), menurunkan berat badan (defisit kalori), atau menjaga berat badan (kalori seimbang).",
+  "carbohydrates": "Karbohidrat",
+  "fat": "Lemak",
+  "protein": "Protein",
+  "bulking_subtitle": "Bulking dilakukan saat kamu ingin meningkatkan massa otot atau berat badan. Asupan kalori akan lebih tinggi dari kebutuhan harian agar tubuh memiliki cukup energi untuk membentuk otot.",
+  "cuting_subtitle": "Cutting dilakukan untuk menurunkan berat badan atau kadar lemak tubuh. Kalori yang dikonsumsi akan dikurangi agar tubuh menggunakan cadangan lemak sebagai sumber energi.",
+
+  "manage_allergies_title": "Kelola Alergi",
+  "select_allergies_title": "Pilih Kategori Alergi:",
+  "select_allergies_subtitle": "Turunan Alergi Yang Dipilih:",
+  "allergy_detected_title": "Kandungan Alergen Terdeteksi !",
+  "allergy_detected_desc": "Produk ini mengandung bahan yang dapat memicu alergi. Sebaiknya hindari konsumsi.",
+  "product_content": "KANDUNGAN PRODUK",
+  "further_explanation": "PENJELASAN LEBIH LANJUT",
+  "reaction": "Reaksi: ",
+  "treatment": "Penanganan: ",
+  "medicine": "Obat: ",
+  "no_data": "Gagal menampilkan data",
+  "error_no_internet_title": "Tidak ada koneksi internet",
+  "error_no_internet_desc": "Silakan periksa koneksi Anda dan coba lagi.",
+  "success_detected_title": "PRODUK AMAN DIKONSUMSI",
+  "success_detected_subtitle": "Produk ini tidak mengandung bahan yang dapat memicu alergi.",
+  "no_allergies_choosen": "Belum ada alergi yang kamu pilih nih.\nYuk pilih dulu biar aman~"
+}

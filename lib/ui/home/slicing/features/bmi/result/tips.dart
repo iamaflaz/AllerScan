@@ -1,32 +1,34 @@
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BMITips extends StatelessWidget {
   final String category;
 
   const BMITips({Key? key, required this.category}) : super(key: key);
 
-  Map<String, Map<String, String>> getBMIMessages() {
-    return {
-      'UNDERWEIGHT': {
-        'headline': '📢 Berat badanmu di bawah normal 😕',
-        'sub': 'Ayo jaga pola makan dan tambah asupan nutrisi, biar tubuh tetap kuat dan sehat ya!',
-      },
-      'IDEAL': {
-        'headline': '📢 Yeay! Berat badanmu ideal 😄',
-        'sub': 'Pertahankan pola makan seimbang dan gaya hidup sehat ya!',
-      },
-      'OVERWEIGHT': {
-        'headline': '📢 Kamu sedikit kelebihan berat badan!',
-        'sub': 'Yuk, mulai lebih aktif bergerak dan atur pola makan biar kembali ideal!',
-      },
-      'OBESITAS': {
-        'headline': '📢 Berat badanmu termasuk obesitas 😟',
-        'sub': 'Konsultasi ke ahli gizi bisa membantu, yuk mulai dari langkah kecil yang konsisten 💪',
-      },
-    };
-  }
+Map<String, Map<String, String>> getBMIMessages() {
+  return {
+    'UNDERWEIGHT': {
+      'headline': 'bmi.underweight.headline'.tr(),
+      'sub': 'bmi.underweight.sub'.tr(),
+    },
+    'IDEAL': {
+      'headline': 'bmi.ideal.headline'.tr(),
+      'sub': 'bmi.ideal.sub'.tr(),
+    },
+    'OVERWEIGHT': {
+      'headline': 'bmi.overweight.headline'.tr(),
+      'sub': 'bmi.overweight.sub'.tr(),
+    },
+    'OBESITAS': {
+      'headline': 'bmi.obesitas.headline'.tr(),
+      'sub': 'bmi.obesitas.sub'.tr(),
+    },
+  };
+}
+
 
   @override
   Widget build(BuildContext context) {

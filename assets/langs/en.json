@@ -1,0 +1,94 @@
+{
+  "button_check": "Check",
+  "button_check_again": "Check Again",
+  "button_back": "Back to Menu",
+  "button_close": "Close",
+
+  "news_section_title": "News",
+  "news_section_subtitle": "Stay updated with the latest news",
+  "features_section_title": "Other Features",
+  "features_section_subtitle": "Explore other features that help you",
+
+  "height_title": "Height (cm)",
+  "weight_title": "Weight (kg)",
+  "ages_title": "Age",
+  "gender_title": "Gender",
+  "gender": {
+    "male": "Male",
+    "female": "Female"
+  },
+
+  "validation": "Input the valid data",
+  "count_bmi_title": "Let's check your BMI!",
+  "count_bmi_subtitle": "Is your weight ideal for your height?",
+  "indicator_bmi": "Your BMI are :",
+  "result_bmi_title": "BMI Result",
+  "bmi": {
+    "underweight": {
+      "headline": "📢 Your weight is below normal 😕",
+      "sub": "Maintain good nutrition to stay strong and healthy!"
+    },
+    "ideal": {
+      "headline": "📢 Yay! Your weight is ideal 😄",
+      "sub": "Keep up the healthy lifestyle and balanced diet!"
+    },
+    "overweight": {
+      "headline": "📢 You are slightly overweight!",
+      "sub": "Start being more active and manage your diet to get back in shape!"
+    },
+    "obesitas": {
+      "headline": "📢 You fall into the obese category 😟",
+      "sub": "Consider seeing a nutritionist and start with small healthy steps 💪"
+    }
+  },
+
+  "calories_count_app_bar": "Daily Calories",
+  "count_calori_title": "Calculate Your Calories",
+  "count_calori_subtitle": "Enter your details to see BMR & TDEE",
+  "activity_title": "Activity Level",
+  "activity": {
+    "very_low": "Very low activity",
+    "light": "Light (1-3x/week)",
+    "moderate": "Moderate (3-5x/week)",
+    "high": "Heavy (6-7x/week)",
+    "explanation": {
+      "very_low_title": "1. Very low activity\n",
+      "very_low_desc": "This activity level reflects a very passive lifestyle, generally occurring in someone who spends most of their time sitting or lying down without doing any meaningful physical activity. Examples of activities in this category include sitting at a computer all day, watching television for long periods of time, or lying down with no other physical activity.\n\n",
+      "light_title": "2. Light\n",
+      "light_desc": "Light activity level describes someone who does a limited amount of light physical activity, about 1 to 3 times a week. Examples include prolonged standing, typing, teaching a class, or other light work that is not too taxing.\n\n",
+      "moderate_title": "3. Moderate\n",
+      "moderate_desc": "Moderate level applies to individuals who are physically active about 3 to 5 times per week. Examples include cleaning the house, walking, shopping, or taking a leisurely bike ride.\n\n",
+      "high_title": "4. Heavy\n",
+      "high_desc": "Vigorous activity includes high-intensity physical work or exercise that is done almost every day. Examples include hiking, intensive gardening, or doing construction work.\n"
+    }
+  },
+  "activity_explanation_title": "Activity Level Explanation",
+
+  "result_calori_title": "Daily Calories Result",
+  "result_bmr_title": "👨‍⚕️ Your BMR Results",
+  "result_bmr_subtitle": "*BMR is the minimum number of calories your body needs to perform basic functions such as breathing, maintaining body temperature, and heart rate when you are not doing any activity (e.g. sleeping). These calories are important to keep your body alive and working properly even without physical activity.",
+  "result_tdee_title": "🏃‍♂️ Your TDEE Results",
+  "result_tdee_subtitle": "*TDEE is the total number of calories you need in a day based on your physical activity, from walking, studying, exercising, to other light activities.By knowing your TDEE, you can determine whether you want to gain weight (calorie surplus), lose weight (calorie deficit), or maintain your weight (calorie balance).",
+  "carbohydrates": "Carbohydrates",
+  "fat": "Fat",
+  "protein": "Protein",
+  "bulking_subtitle": "Bulking is done when you want to increase muscle mass or body weight. The calorie intake will be higher than the daily requirement so that the body has enough energy to build muscle.",
+  "cuting_subtitle": "Cutting is done to reduce body weight or body fat levels. The calories consumed will be reduced so that the body uses fat reserves as an energy source.",
+
+  "manage_allergies_title": "Manage Allergies",
+  "select_allergies_title": "Select Allergy Categories:",
+  "select_allergies_subtitle": "Selected Allergy Subtypes:",
+  "allergy_detected_title": "Allergen Content Detected!",
+  "allergy_detected_desc": "This product contains ingredients that may trigger allergies. We recommend avoiding consumption.",
+  "product_content": "PRODUCT CONTENT",
+  "further_explanation": "FURTHER EXPLANATION",
+  "reaction": "Reaction: ",
+  "treatment": "Treatment: ",
+  "medicine": "Medication: ",
+  "no_data": "Failed load the data",
+  "error_no_internet_title": "No internet connection",
+  "error_no_internet_desc": "Please check your connection and try again.",
+  "success_detected_title": "PRODUCTS ARE SAFE FOR CONSUMPTION",
+  "success_detected_subtitle": "This product does not contain ingredients that can trigger allergies.",
+  "no_allergies_choosen": "There is no allergy that you choose yet.\nLet's choose first to be safe ~"
+}

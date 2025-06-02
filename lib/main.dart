@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:allerscan/ui/splash/splash.dart';
 import 'package:allerscan/ui/navbar/navbar.dart';
 import 'package:allerscan/ui/manage/manage_allergies/providers/allergy_provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => AllergyProvider(),
-      child: const MyApp(),
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('id')],
+      path: 'assets/langs', 
+      fallbackLocale: const Locale('en'),
+      child: ChangeNotifierProvider(
+        create: (_) => AllergyProvider(),
+        child: const MyApp(),
+      ),
     ),
   );
 }
@@ -19,8 +28,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'AllerScan',
+      debugShowCheckedModeBanner: false,
+      locale: context.locale, 
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
       home: const SplashScreen(),
       routes: {'/navbar': (context) => const Navbar()},
     );

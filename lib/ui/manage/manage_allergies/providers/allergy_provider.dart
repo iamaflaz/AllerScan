@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AllergyProvider with ChangeNotifier {
   final List<String> availableAllergies = [
     'Gluten',
-    'Kacang',
-    'Laktosa',
+    'Nuts',
+    'Laktose',
     'Seafood',
   ];
 
@@ -14,25 +14,115 @@ class AllergyProvider with ChangeNotifier {
 
   final Map<String, List<String>> allergyChildren = {
     'Gluten': [
-      'Gandum',
       'Wheat',
       'Barley',
       'Rye',
       'Seitan',
-      'Tepung',
       'Cornstarch',
+      'Emmer',
+      'Bulgur',
+      'Couscous',
+      'Durum',
+      'Matzoh',
     ],
-    'Kacang': ['Peanut', 'Almond', 'Cashew'],
-    'Laktosa': ['Susu', 'Lactose', 'Cheese', 'Yogurt'],
-    'Seafood': [
-      'Udang',
-      'Shrimp',
-      'Kepiting',
-      'Crab',
+    'Nuts': [
+      'Peanut',
+      'Almond',
+      'Cashew',
+      'Beechnut',
+      'Butternut',
+      'Chestnut',
+      'Pistachio',
+      'Walnut',
+      'Pine nut',
+    ],
+    'Laktose': [
+      'Milk',
+      'Lactose',
+      'Cheese',
+      'Yogurt',
+      'Butter',
+      'Casein',
+      'Ghee',
+      'Lactalbumin',
+      'Lactoferrin',
+      'Lactoglobulin',
+      'Tagatose',
+    ],
+    'Seafood': ['Shrimp', 'Crab', 'Squid', 'Barnacle', 'Mussels', 'Octopus'],
+  };
+
+  final Map<String, List<String>> allergySynonyms = {
+    'Wheat': [
+      'Wheat',
+      'Gandum',
+      'Terigu',
+      'Tepung Gandum',
+      'Tepung Terigu',
+      'bran',
+      'durum',
+      'germ',
+      'gluten',
+      'grass',
+      'malt',
+      'sprouts',
+      'starch',
+    ],
+    'Barley': ['Barley', 'Jelai'],
+    'Rye': ['Rye', 'Gandum hitam'],
+    'Seitan': ['Seitan'],
+    'Cornstarch': ['Cornstarch', 'Tepung jagung'],
+    'Emmer': ['Emmer'],
+    'Bulgur': ['Bulgur'],
+    'Couscous': ['Couscous'],
+    'Durum': ['Durum'],
+    'Matzoh': ['matzo', 'matzah', 'matza'],
+
+    'Peanut': ['Peanut', 'Kacang tanah'],
+    'Almond': ['Almond', 'Kacang almond'],
+    'Cashew': ['Cashew', 'Kacang mete'],
+    'Beechnut': ['Beechnut'],
+    'Butternut': ['Kenari Putih', 'Butternut'],
+    'Chestnut': ['Chestnut'],
+    'Pistachio': [''],
+    'Walnut': ['Black walnut', 'Walnut', 'California walnut'],
+    'Pine nut': [
+      'Kacang pinus',
+      'pignoli',
+      'pigñolia',
+      'pignon',
+      'piñon',
+      'pinyon nut',
+      'pinon',
+    ],
+
+    'Milk': ['Milk', 'Susu'],
+    'Lactose': ['Lactose', 'Laktosa'],
+    'Cheese': ['Cheese', 'Keju'],
+    'Yogurt': ['Yogurt', 'Yoghurt'],
+    'Butter': ['Mentega', 'Margarin', 'Margarine'],
+    'Casein': ['Kasein'],
+    'Ghee': ['Ghee'],
+    'Lactalbumin': ['Lactalbumin'],
+    'Lactoferrin': ['Lactoferrin'],
+    'Lactoglobulin': ['Lactoglobulin'],
+    'Tagatose': ['Tagatose'],
+
+    'Shrimp': ['Shrimp', 'Udang'],
+    'Crab': ['Crab', 'Kepiting'],
+    'Clams': [
+      'Clams',
       'Kerang',
+      'Mussels',
+      'Oyster',
       'Tiram',
-      'Cumi',
+      'Abalone',
+      'Kerang',
+      'Abalone',
     ],
+    'Squid': ['Squid', 'Cumi', 'Cumi-cumi'],
+    'Barnacle': ['Barnacle', 'Teritip'],
+    'Octopus': ['Octopus', 'Gurita'],
   };
 
   bool isSelected(String allergy) {
@@ -42,13 +132,11 @@ class AllergyProvider with ChangeNotifier {
   void toggleAllergy(String allergy) {
     if (allergyChildren.containsKey(allergy)) {
       if (isSelected(allergy)) {
-        // Hapus kategori dan semua turunannya
         _selectedAllergies.remove(allergy);
         _selectedAllergies.removeWhere(
           (item) => allergyChildren[allergy]!.contains(item),
         );
       } else {
-        // Tambah kategori dan semua turunannya
         _selectedAllergies.add(allergy);
         _selectedAllergies.addAll(
           allergyChildren[allergy]!.where(
@@ -71,14 +159,12 @@ class AllergyProvider with ChangeNotifier {
   void removeAllergyItem(String item) {
     _selectedAllergies.remove(item);
 
-    // Jika item adalah kategori utama, hapus juga turunannya
     if (allergyChildren.containsKey(item)) {
       _selectedAllergies.removeWhere(
         (child) => allergyChildren[item]!.contains(child),
       );
     }
 
-    // Jika item adalah turunan, periksa apakah perlu hapus kategori utama
     allergyChildren.forEach((parent, children) {
       if (children.contains(item)) {
         final hasOther = children.any(
@@ -105,5 +191,47 @@ class AllergyProvider with ChangeNotifier {
     _selectedAllergies.clear();
     _selectedAllergies.addAll(savedAllergies);
     notifyListeners();
+  }
+
+  bool containsDetectedAllergen(String ocrText) {
+    final lowerText = ocrText.toLowerCase();
+
+    for (final parent in _selectedAllergies) {
+      final children = allergyChildren[parent] ?? [];
+
+      for (final child in children) {
+        final synonyms = allergySynonyms[child] ?? [child];
+
+        for (final synonym in synonyms) {
+          if (lowerText.contains(synonym.toLowerCase())) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
+  List<String> getDetectedAllergens(String ocrText) {
+    final lowerText = ocrText.toLowerCase();
+    final detected = <String>[];
+
+    for (final parent in _selectedAllergies) {
+      final children = allergyChildren[parent] ?? [];
+
+      for (final child in children) {
+        final synonyms = allergySynonyms[child] ?? [child];
+
+        for (final synonym in synonyms) {
+          if (lowerText.contains(synonym.toLowerCase()) &&
+              !detected.contains(child)) {
+            detected.add(child);
+          }
+        }
+      }
+    }
+
+    return detected;
   }
 }

@@ -3,6 +3,7 @@ import 'package:allerscan/ui/home/slicing/features/bmi/result/category.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/header.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/indicator.dart';
 import 'package:allerscan/ui/home/slicing/features/bmi/result/tips.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:allerscan/ui/navbar/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
@@ -69,7 +70,7 @@ class _BMIResultPageState extends State<BMIResultPage> {
           },
         ),
         title: Text(
-          'Hasil BMI',
+          'result_bmi_title'.tr(),
           style: AppTextStyles.poppinsBold2.copyWith(color: colorWhite),
         ),
         centerTitle: true,
@@ -118,7 +119,7 @@ class _BMIResultPageState extends State<BMIResultPage> {
                           ),
                         ),
                         child: Text(
-                          "Cek Lagi",
+                          'button_check_again'.tr(),
                           style: AppTextStyles.montsBold5.copyWith(
                             color: colorWhite,
                           ),
@@ -151,7 +152,7 @@ class _BMIResultPageState extends State<BMIResultPage> {
                           ),
                         ),
                         child: Text(
-                          "Kembali",
+                          'button_back'.tr(),
                           style: AppTextStyles.montsBold5.copyWith(
                             color: primaryColor,
                           ),

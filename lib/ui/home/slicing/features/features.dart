@@ -4,6 +4,8 @@ import 'package:allerscan/ui/home/slicing/features/article/see_more/article_list
 import 'package:allerscan/ui/home/slicing/features/bmi/count/count_page.dart';
 import 'package:allerscan/ui/home/slicing/features/calori/count/count_page.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 import 'package:allerscan/ui/home/slicing/features/widgets/feature_card.dart';
 
 class FiturSection extends StatelessWidget {
@@ -18,12 +20,12 @@ class FiturSection extends StatelessWidget {
         children: [
           const SizedBox(height: 10),
           Text(
-            "Fitur Lainnya",
+            'features_section_title'.tr(),
             style: AppTextStyles.poppinsBold3.copyWith(color: colorBlack),
           ),
           const SizedBox(height: 5),
           Text(
-            "Jelajahi fitur tambahan yang membantu Anda",
+            'features_section_subtitle'.tr(),
             style: AppTextStyles.montsReg1.copyWith(color: colorBlack),
           ),
           const SizedBox(height: 15),
@@ -36,7 +38,7 @@ class FiturSection extends StatelessWidget {
                 routeBuilder: BMICountPage(),
               ),
               FeatureCard(
-                title: "Kalori Harian",
+                title: 'calories_count_app_bar'.tr(),
                 assetPath: "assets/icons/bmr.png",
                 routeBuilder: CaloriCountPage(),
               ),

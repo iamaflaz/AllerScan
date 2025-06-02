@@ -1,5 +1,6 @@
 import 'package:allerscan/consts/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BMIIndicator extends StatelessWidget {
   final double bmi;
@@ -12,7 +13,7 @@ class BMIIndicator extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'BMI-mu adalah:',
+          'indicator_bmi'.tr(),
           style: TextStyle(fontSize: 16, color: Colors.black),
         ),
         SizedBox(height: 8),

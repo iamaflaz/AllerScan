@@ -2,6 +2,7 @@ import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/ui/home/slicing/features/article/see_more/detail.dart';
 import 'package:allerscan/ui/home/slicing/features/article/service.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ArticleListPage extends StatefulWidget {
@@ -48,7 +49,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
           },
         ),
         title: Text(
-          'More Aritkel',
+          'news_section_title'.tr(),
           style: AppTextStyles.poppinsBold2.copyWith(color: colorWhite),
         ),
         centerTitle: true,

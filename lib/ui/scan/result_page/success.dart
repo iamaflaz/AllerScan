@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
 
@@ -20,9 +20,9 @@ class SuccessScreen extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
-                      'PRODUK AMAN DIKONSUMSI',
+                      'success_detected_title'.tr(),
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -31,7 +31,7 @@ class SuccessScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      'Produk ini tidak mengandung bahan yang dapat memicu alergi.',
+                      'success_detected_subtitle'.tr(),
                       style: TextStyle(fontSize: 14),
                       textAlign: TextAlign.center,
                     ),
