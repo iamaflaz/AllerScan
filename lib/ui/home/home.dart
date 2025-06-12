@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
     elevation: 0,
     centerTitle: true,
     title: Text(
-      'SafeBite',
+      'AllerScan',
       style: AppTextStyles.poppinsBold2.copyWith(color: colorBlack),
     ),
     backgroundColor: secondaryColor,
