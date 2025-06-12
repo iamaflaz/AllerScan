@@ -86,8 +86,8 @@
   "treatment": "Treatment: ",
   "medicine": "Medication: ",
   "no_data": "Failed load the data",
-  "error_no_internet_title": "No internet connection",
-  "error_no_internet_desc": "Please check your connection and try again.",
+  "no_internet_title": "No internet connection",
+  "no_internet_desc": "Please check your connection and try again.",
   "success_detected_title": "PRODUCTS ARE SAFE FOR CONSUMPTION",
   "success_detected_subtitle": "This product does not contain ingredients that can trigger allergies.",
   "no_allergies_choosen": "There is no allergy that you choose yet.\nLet's choose first to be safe ~"

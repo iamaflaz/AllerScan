@@ -86,8 +86,8 @@
   "treatment": "Penanganan: ",
   "medicine": "Obat: ",
   "no_data": "Gagal menampilkan data",
-  "error_no_internet_title": "Tidak ada koneksi internet",
-  "error_no_internet_desc": "Silakan periksa koneksi Anda dan coba lagi.",
+  "no_internet_title": "Tidak ada koneksi internet",
+  "no_internet_desc": "Silakan periksa koneksi Anda dan coba lagi.",
   "success_detected_title": "PRODUK AMAN DIKONSUMSI",
   "success_detected_subtitle": "Produk ini tidak mengandung bahan yang dapat memicu alergi.",
   "no_allergies_choosen": "Belum ada alergi yang kamu pilih nih.\nYuk pilih dulu biar aman~"
