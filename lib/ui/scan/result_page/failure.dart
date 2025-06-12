@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:vibration/vibration.dart';
 
 class FailurePage extends StatelessWidget {
   final List<String> detectedAllergies;
@@ -11,6 +12,12 @@ class FailurePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (await Vibration.hasVibrator() ?? false) {
+        Vibration.vibrate(pattern: [0, 400, 300, 400]);
+      }
+    });
+
     return SingleChildScrollView(
       padding: const EdgeInsets.only(top: 20),
       child: Column(
@@ -53,26 +60,24 @@ class FailurePage extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children:
-                detectedAllergies
-                    .map(
-                      (allergy) => Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: colorRed2,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          allergy,
-                          style: AppTextStyles.montsBold6.copyWith(
-                            color: colorRed1,
-                          ),
-                        ),
+                detectedAllergies.map((allergy) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: colorRed2,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      allergy,
+                      style: AppTextStyles.montsBold6.copyWith(
+                        color: colorRed1,
                       ),
-                    )
-                    .toList(),
+                    ),
+                  );
+                }).toList(),
           ),
           const SizedBox(height: 24),
           Text(
@@ -168,13 +173,13 @@ class FailurePage extends StatelessWidget {
           Image.asset('assets/images/no_internet.png', height: 150),
           const SizedBox(height: 12),
           Text(
-            'no_internet_title'.tr(),
+            'Tidak ada koneksi internet'.tr(),
             style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 4),
           Text(
-            'no_internet_desc'.tr(),
+            'Silakan periksa koneksi Anda dan coba lagi'.tr(),
             style: AppTextStyles.montsReg2.copyWith(color: colorBlack),
             textAlign: TextAlign.center,
           ),
