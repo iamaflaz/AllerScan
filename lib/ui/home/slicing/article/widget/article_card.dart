@@ -1,21 +1,13 @@
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
+import 'package:allerscan/ui/home/slicing/features/article/models.dart';
 import 'package:allerscan/ui/home/slicing/features/article/see_more/detail.dart';
 import 'package:flutter/material.dart';
 
 class ArticleCard extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final String published;
-  final Map article;
+  final Article article;
 
-  const ArticleCard({
-    super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.published,
-    required this.article,
-  });
+  const ArticleCard({super.key, required this.article});
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +23,19 @@ class ArticleCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (imageUrl.isNotEmpty)
+            if (article.imageUrl.isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(imageUrl, width: 90, height: 90, fit: BoxFit.cover),
+                child: Image.network(article.imageUrl, width: 90, height: 90, fit: BoxFit.cover),
               ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: AppTextStyles.montsBold5.copyWith(color: colorBlack)),
+                  Text(article.title, style: AppTextStyles.montsBold5.copyWith(color: colorBlack)),
                   const SizedBox(height: 4),
-                  Text(published, style: AppTextStyles.montsReg2.copyWith(color: colorBlack)),
+                  Text(article.date, style: AppTextStyles.montsReg2.copyWith(color: colorBlack)),
                 ],
               ),
             ),

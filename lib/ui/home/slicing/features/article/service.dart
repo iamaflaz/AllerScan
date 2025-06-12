@@ -1,19 +1,19 @@
-// lib/services/news_service.dart
 import 'dart:convert';
+import 'package:allerscan/ui/home/slicing/features/article/models.dart';
 import 'package:http/http.dart' as http;
 
-class NewsService {
-  static const _apiKey = '943bf8ebff0240ba8b4792c215f7b916';
-  static const _apiUrl = 'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=$_apiKey';
+class ApiService {
+  static const String baseUrl =
+      'https://profound-communication-production.up.railway.app/api/articles';
 
-  static Future<List<dynamic>> fetchNews() async {
-    final response = await http.get(Uri.parse(_apiUrl));
+  static Future<List<Article>> fetchArticles() async {
+    final response = await http.get(Uri.parse(baseUrl));
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return data['articles'];
+      final List data = jsonDecode(response.body);
+      return data.map((json) => Article.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to load news');
+      throw Exception('Gagal memuat artikel');
     }
   }
 }

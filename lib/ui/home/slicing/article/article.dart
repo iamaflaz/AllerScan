@@ -1,9 +1,10 @@
 import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 import 'package:allerscan/ui/home/slicing/article/widget/article_card.dart';
-import 'package:allerscan/ui/home/slicing/features/article/service.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:allerscan/ui/home/slicing/features/article/models.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '/ui/home/slicing/features/article/service.dart';
 
 class BeritaSection extends StatefulWidget {
   const BeritaSection({super.key});
@@ -13,7 +14,7 @@ class BeritaSection extends StatefulWidget {
 }
 
 class _BeritaSectionState extends State<BeritaSection> {
-  List<dynamic> news = [];
+  List<Article> articles = [];
   bool isLoading = true;
 
   @override
@@ -24,9 +25,9 @@ class _BeritaSectionState extends State<BeritaSection> {
 
   Future<void> fetchBerita() async {
     try {
-      final result = await NewsService.fetchNews();
+      final result = await ApiService.fetchArticles();
       setState(() {
-        news = result.take(3).toList();
+        articles = result.take(3).toList();
         isLoading = false;
       });
     } catch (e) {
@@ -51,14 +52,7 @@ class _BeritaSectionState extends State<BeritaSection> {
           isLoading
               ? const Center(child: CircularProgressIndicator())
               : Column(
-                  children: news.map((item) {
-                    return ArticleCard(
-                      imageUrl: item['urlToImage'] ?? '',
-                      title: item['title'] ?? '',
-                      published: item['publishedAt'] ?? '',
-                      article: item,
-                    );
-                  }).toList(),
+                  children: articles.map((article) => ArticleCard(article: article)).toList(),
                 ),
         ],
       ),
