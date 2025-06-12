@@ -6,8 +6,10 @@ class ApiService {
   static const String baseUrl =
       'https://profound-communication-production.up.railway.app/api/articles';
 
-  static Future<List<Article>> fetchArticles() async {
-    final response = await http.get(Uri.parse(baseUrl));
+  static Future<List<Article>> fetchArticles(String lang) async {
+    final url = Uri.parse('$baseUrl?lang=$lang'); // tambahkan query lang
+
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       final List data = jsonDecode(response.body);

@@ -21,9 +21,19 @@ class _ArticleListPageState extends State<ArticleListPage> {
     loadNews();
   }
 
+  @override
+  void didChangeDependencies() {
+    // Update artikel ketika bahasa diganti
+    super.didChangeDependencies();
+    loadNews();
+  }
+
   Future<void> loadNews() async {
     try {
-      final result = await ApiService.fetchArticles();
+      final lang = context.locale.languageCode; // 'id' atau 'en'
+      final result = await ApiService.fetchArticles(
+        lang,
+      ); // ambil artikel sesuai bahasa
       setState(() {
         articles = result;
         isLoading = false;

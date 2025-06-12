@@ -23,11 +23,18 @@ class _BeritaSectionState extends State<BeritaSection> {
     fetchBerita();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    fetchBerita(); // ambil ulang saat locale berubah
+  }
+
   Future<void> fetchBerita() async {
     try {
-      final result = await ApiService.fetchArticles();
+      final lang = context.locale.languageCode; // 'id' atau 'en'
+      final result = await ApiService.fetchArticles(lang);
       setState(() {
-        articles = result.take(3).toList();
+        articles = result.take(3).toList(); // ambil 3 teratas
         isLoading = false;
       });
     } catch (e) {
@@ -45,15 +52,24 @@ class _BeritaSectionState extends State<BeritaSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('news_section_title'.tr(), style: AppTextStyles.poppinsBold3.copyWith(color: colorBlack)),
+          Text(
+            'news_section_title'.tr(),
+            style: AppTextStyles.poppinsBold3.copyWith(color: colorBlack),
+          ),
           const SizedBox(height: 4),
-          Text('news_section_subtitle'.tr(), style: AppTextStyles.montsReg1.copyWith(color: colorBlack)),
+          Text(
+            'news_section_subtitle'.tr(),
+            style: AppTextStyles.montsReg1.copyWith(color: colorBlack),
+          ),
           const SizedBox(height: 16),
           isLoading
               ? const Center(child: CircularProgressIndicator())
               : Column(
-                  children: articles.map((article) => ArticleCard(article: article)).toList(),
-                ),
+                children:
+                    articles
+                        .map((article) => ArticleCard(article: article))
+                        .toList(),
+              ),
         ],
       ),
     );
