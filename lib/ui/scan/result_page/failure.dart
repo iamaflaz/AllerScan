@@ -1,10 +1,11 @@
-import 'package:allerscan/ui/scan/service/alergi_service.dart';
 import 'package:flutter/material.dart';
-import 'package:allerscan/consts/colors.dart';
-import 'package:allerscan/consts/fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:vibration/vibration.dart';
-import 'package:provider/provider.dart';
+
+import 'package:allerscan/consts/colors.dart';
+import 'package:allerscan/consts/fonts.dart';
+import 'package:allerscan/ui/scan/service/alergi_service.dart';
 import 'package:allerscan/ui/manage/manage_allergies/providers/allergy_provider.dart';
 
 class FailurePage extends StatelessWidget {
@@ -24,11 +25,6 @@ class FailurePage extends StatelessWidget {
     final groupedAllergies = allergyProvider.groupDetectedByParent(
       detectedAllergies,
     );
-
-    final parentAllergens = allergyProvider.getDetectedParentAllergens(
-      detectedAllergies,
-    );
-    final allToExplain = {...parentAllergens, ...detectedAllergies}.toList();
 
     return SingleChildScrollView(
       padding: const EdgeInsets.only(top: 20),
@@ -63,21 +59,21 @@ class FailurePage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
+
           Text(
             'product_content'.tr(),
             style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
           ),
           const SizedBox(height: 12),
+
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children:
                 groupedAllergies.entries.expand((entry) {
-                  final parent = entry.key;
                   final children = entry.value;
-
-                  return [
-                    Container(
+                  return children.map(
+                    (child) => Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12,
                         vertical: 8,
@@ -87,58 +83,43 @@ class FailurePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
-                        parent,
+                        child,
                         style: AppTextStyles.montsBold6.copyWith(
                           color: colorRed1,
                         ),
                       ),
                     ),
-                    ...children.map(
-                      (child) => Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: colorRed2.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          child,
-                          style: AppTextStyles.montsBold6.copyWith(
-                            color: colorRed1,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ];
+                  );
                 }).toList(),
           ),
+
           const SizedBox(height: 24),
+
           Text(
             'further_explanation'.tr(),
             style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
           ),
           const SizedBox(height: 12),
+
           FutureBuilder<List<AllergyWarning>>(
             future: fetchAllergyWarnings(
-              allToExplain,
+              detectedAllergies, // hanya child allergen
               context.locale.languageCode,
             ),
-
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return _buildGeneralErrorUI(context, snapshot.error.toString());
               } else if (snapshot.hasData) {
-                if (snapshot.data!.isEmpty) {
+                final warnings = snapshot.data!;
+                if (warnings.isEmpty) {
                   return Text('no_data'.tr());
                 }
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:
-                      snapshot.data!.map((warning) {
+                      warnings.map((warning) {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 16),
                           child: Column(
