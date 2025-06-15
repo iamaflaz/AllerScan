@@ -83,11 +83,9 @@ class _NavbarState extends State<Navbar> {
       listen: false,
     );
 
-    final scannedText = recognizedText.toLowerCase();
-    final detectedAllergies =
-        allergyProvider.selectedAllergies
-            .where((allergy) => scannedText.contains(allergy.toLowerCase()))
-            .toList();
+    final detectedAllergies = allergyProvider.getDetectedAllergens(
+      recognizedText,
+    );
 
     // Menampilkan ResultScreen di bottom sheet
     showModalBottomSheet(

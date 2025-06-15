@@ -4,6 +4,8 @@ import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/consts/fonts.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:vibration/vibration.dart';
+import 'package:provider/provider.dart';
+import 'package:allerscan/ui/manage/manage_allergies/providers/allergy_provider.dart';
 
 class FailurePage extends StatelessWidget {
   final List<String> detectedAllergies;
@@ -14,9 +16,19 @@ class FailurePage extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (await Vibration.hasVibrator() ?? false) {
-        Vibration.vibrate(pattern: [0, 400, 300, 400]);
+        Vibration.vibrate(duration: 1000);
       }
     });
+
+    final allergyProvider = context.read<AllergyProvider>();
+    final groupedAllergies = allergyProvider.groupDetectedByParent(
+      detectedAllergies,
+    );
+
+    final parentAllergens = allergyProvider.getDetectedParentAllergens(
+      detectedAllergies,
+    );
+    final allToExplain = {...parentAllergens, ...detectedAllergies}.toList();
 
     return SingleChildScrollView(
       padding: const EdgeInsets.only(top: 20),
@@ -60,23 +72,46 @@ class FailurePage extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children:
-                detectedAllergies.map((allergy) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: colorRed2,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      allergy,
-                      style: AppTextStyles.montsBold6.copyWith(
-                        color: colorRed1,
+                groupedAllergies.entries.expand((entry) {
+                  final parent = entry.key;
+                  final children = entry.value;
+
+                  return [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: colorRed2.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        parent,
+                        style: AppTextStyles.montsBold6.copyWith(
+                          color: colorRed1,
+                        ),
                       ),
                     ),
-                  );
+                    ...children.map(
+                      (child) => Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colorRed2.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          child,
+                          style: AppTextStyles.montsBold6.copyWith(
+                            color: colorRed1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ];
                 }).toList(),
           ),
           const SizedBox(height: 24),
@@ -87,9 +122,10 @@ class FailurePage extends StatelessWidget {
           const SizedBox(height: 12),
           FutureBuilder<List<AllergyWarning>>(
             future: fetchAllergyWarnings(
-              detectedAllergies,
+              allToExplain,
               context.locale.languageCode,
             ),
+
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
@@ -173,13 +209,13 @@ class FailurePage extends StatelessWidget {
           Image.asset('assets/images/no_internet.png', height: 150),
           const SizedBox(height: 12),
           Text(
-            'Tidak ada koneksi internet'.tr(),
+            'no_internet_title'.tr(),
             style: AppTextStyles.montsBold5.copyWith(color: colorBlack),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 4),
           Text(
-            'Silakan periksa koneksi Anda dan coba lagi'.tr(),
+            'no_internet_desc'.tr(),
             style: AppTextStyles.montsReg2.copyWith(color: colorBlack),
             textAlign: TextAlign.center,
           ),

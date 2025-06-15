@@ -84,7 +84,7 @@ class AllergyProvider with ChangeNotifier {
     'Beechnut': ['Beechnut'],
     'Butternut': ['Kenari Putih', 'Butternut'],
     'Chestnut': ['Chestnut'],
-    'Pistachio': [''],
+    'Pistachio': ['Pistachio', 'Kacang pistachio'],
     'Walnut': ['Black walnut', 'Walnut', 'California walnut'],
     'Pine nut': [
       'Kacang pinus',
@@ -127,6 +127,20 @@ class AllergyProvider with ChangeNotifier {
 
   bool isSelected(String allergy) {
     return _selectedAllergies.contains(allergy);
+  }
+
+  List<String> getDetectedParentAllergens(List<String> detectedChildren) {
+    final parents = <String>{};
+
+    for (final child in detectedChildren) {
+      for (final entry in allergyChildren.entries) {
+        if (entry.value.contains(child)) {
+          parents.add(entry.key);
+        }
+      }
+    }
+
+    return parents.toList();
   }
 
   void toggleAllergy(String allergy) {
@@ -233,5 +247,26 @@ class AllergyProvider with ChangeNotifier {
     }
 
     return detected;
+  }
+
+  /// Mengelompokkan child allergen yang terdeteksi berdasarkan parent-nya
+  Map<String, List<String>> groupDetectedByParent(
+    List<String> detectedChildren,
+  ) {
+    final Map<String, List<String>> grouped = {};
+
+    for (final entry in allergyChildren.entries) {
+      final parent = entry.key;
+      final children = entry.value;
+
+      final matched =
+          children.where((child) => detectedChildren.contains(child)).toList();
+
+      if (matched.isNotEmpty) {
+        grouped[parent] = matched;
+      }
+    }
+
+    return grouped;
   }
 }
