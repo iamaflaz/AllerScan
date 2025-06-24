@@ -29,6 +29,10 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
     final allergyProvider = Provider.of<AllergyProvider>(context);
     final orange = primaryColor;
 
+    final selectedParents = allergyProvider.availableAllergies
+        .where((a) => allergyProvider.isSelected(a))
+        .toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -43,17 +47,16 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
             onSelected: (Locale locale) {
               context.setLocale(locale);
             },
-            itemBuilder:
-                (BuildContext context) => <PopupMenuEntry<Locale>>[
-                  PopupMenuItem<Locale>(
-                    value: const Locale('en'),
-                    child: const Text('English'),
-                  ),
-                  PopupMenuItem<Locale>(
-                    value: const Locale('id'),
-                    child: const Text('Bahasa Indonesia'),
-                  ),
-                ],
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<Locale>>[
+              PopupMenuItem<Locale>(
+                value: const Locale('en'),
+                child: const Text('English'),
+              ),
+              PopupMenuItem<Locale>(
+                value: const Locale('id'),
+                child: const Text('Bahasa Indonesia'),
+              ),
+            ],
           ),
         ],
       ),
@@ -118,9 +121,8 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                                 activeColor: colorWhite,
                                 checkColor: primaryColor,
                                 side: BorderSide(color: primaryColor),
-                                onChanged:
-                                    (_) =>
-                                        allergyProvider.toggleAllergy(allergy),
+                                onChanged: (_) =>
+                                    allergyProvider.toggleAllergy(allergy),
                               ),
                             ),
                           ),
@@ -170,10 +172,9 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: allergyProvider.selectedAllergies.length,
+                  itemCount: selectedParents.length,
                   itemBuilder: (context, index) {
-                    final parentAllergy =
-                        allergyProvider.selectedAllergies[index];
+                    final parentAllergy = selectedParents[index];
                     final children =
                         allergyProvider.allergyChildren[parentAllergy] ?? [];
 
@@ -208,61 +209,55 @@ class _ManageAllergiesPageState extends State<ManageAllergiesPage> {
                           Wrap(
                             spacing: 8,
                             runSpacing: 8,
-                            children:
-                                children.map((child) {
-                                  final isChildSelected = allergyProvider
-                                      .isSelected(child);
-                                  return Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 8,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          isChildSelected
-                                              ? primaryColor
-                                              : colorWhite,
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                        color:
-                                            isChildSelected
-                                                ? orange
-                                                : colorGray2,
+                            children: children.map((child) {
+                              final isChildSelected =
+                                  allergyProvider.isSelected(child);
+                              return Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: isChildSelected
+                                      ? primaryColor
+                                      : colorWhite,
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                    color: isChildSelected
+                                        ? orange
+                                        : colorGray2,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      child,
+                                      style: TextStyle(
+                                        color: isChildSelected
+                                            ? colorWhite
+                                            : colorBlack,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          child,
-                                          style: TextStyle(
-                                            color:
-                                                isChildSelected
-                                                    ? colorWhite
-                                                    : colorBlack,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        GestureDetector(
-                                          onTap:
-                                              () => allergyProvider
-                                                  .toggleAllergy(child),
-                                          child: Icon(
-                                            isChildSelected
-                                                ? Icons.remove_circle
-                                                : Icons.add_circle,
-                                            color:
-                                                isChildSelected
-                                                    ? colorWhite
-                                                    : primaryColor,
-                                            size: 20,
-                                          ),
-                                        ),
-                                      ],
+                                    const SizedBox(width: 4),
+                                    GestureDetector(
+                                      onTap: () => allergyProvider
+                                          .toggleAllergy(child),
+                                      child: Icon(
+                                        isChildSelected
+                                            ? Icons.remove_circle
+                                            : Icons.add_circle,
+                                        color: isChildSelected
+                                            ? colorWhite
+                                            : primaryColor,
+                                        size: 20,
+                                      ),
                                     ),
-                                  );
-                                }).toList(),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
                           ),
                         ],
                       ),
