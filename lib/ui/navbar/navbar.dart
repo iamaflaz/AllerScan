@@ -70,13 +70,30 @@ class _NavbarState extends State<Navbar> {
       // Navigasi halaman selain Scan tetap berjalan
       setState(() {
         _selectedIndex = index;
-        // Memastikan halaman tetap pada pilihan yang benar
       });
     }
   }
 
   void processImage(String imgPath) async {
     final recognizedText = await _recognizer.processImage(imgPath);
+
+    if (recognizedText.trim().isEmpty) {
+      showDialog(
+        context: context,
+        builder:
+            (context) => AlertDialog(
+              title: const Text('Allergi tidak ditemukan'),
+              content: const Text('Tolong arahkan kamera ke label makanan'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+      return;
+    }
 
     final allergyProvider = Provider.of<AllergyProvider>(
       context,
@@ -113,7 +130,6 @@ class _NavbarState extends State<Navbar> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        // type: BottomNavigationBarType.fixed,
         backgroundColor: colorWhite,
         currentIndex: _selectedIndex,
         selectedItemColor: primaryColor,
