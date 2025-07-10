@@ -5,13 +5,9 @@ import 'package:allerscan/consts/colors.dart';
 import 'package:allerscan/ui/home/home.dart';
 import 'package:allerscan/ui/manage/manage_allergies/manage_allergies.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:allerscan/ui/scan/scan_page/helpers/image_picker_alert.dart'; // Import Image Picker
-import 'package:allerscan/ui/scan/scan_page/interfaces/text_recognizer.dart'; // Import Interface
-import 'package:allerscan/ui/scan/scan_page/helpers/mlkit_text_recognizer.dart'; // Import MLKitTextRecognizer
 import 'package:provider/provider.dart';
-import 'package:allerscan/ui/manage/manage_allergies/providers/allergy_provider.dart';
 import 'package:allerscan/ui/scan/scan_page/scan_page.dart';
+import 'package:allerscan/ui/scan/scan_page/helpers/proses_ocr.dart';
 
 class Navbar extends StatefulWidget {
   final int initialIndex;
@@ -30,99 +26,29 @@ class _NavbarState extends State<Navbar> {
     const ManageAllergiesPage(),
   ];
 
-  late ImagePicker _picker;
-  late ITextRecognizer _recognizer;
+  late OCRHelper _ocrHelper;
 
   @override
   void initState() {
     super.initState();
     _selectedIndex = widget.initialIndex;
-    _picker = ImagePicker();
-    _recognizer = MLKitTextRecognizer();
+    _ocrHelper = OCRHelper(context);
   }
 
   void _onItemTapped(int index) async {
     if (index == 1) {
-      // Tampilkan pilihan kamera/galeri
-      showDialog(
-        context: context,
-        builder:
-            (context) => imagePickAlert(
-              onCameraPressed: () async {
-                final imgPath = await _picker.pickImage(
-                  source: ImageSource.camera,
-                );
-                if (imgPath == null) return;
-                processImage(imgPath.path);
-                Navigator.of(context).pop();
-              },
-              onGalleryPressed: () async {
-                final imgPath = await _picker.pickImage(
-                  source: ImageSource.gallery,
-                );
-                if (imgPath == null) return;
-                processImage(imgPath.path);
-                Navigator.of(context).pop();
-              },
-            ),
-      );
+      _ocrHelper.pickAndProcessImage();
     } else {
-      // Navigasi halaman selain Scan tetap berjalan
       setState(() {
         _selectedIndex = index;
       });
     }
   }
 
-  void processImage(String imgPath) async {
-    final recognizedText = await _recognizer.processImage(imgPath);
-
-    if (recognizedText.trim().isEmpty) {
-      showDialog(
-        context: context,
-        builder:
-            (context) => AlertDialog(
-              title: const Text('Allergi tidak ditemukan'),
-              content: const Text('Tolong arahkan kamera ke label makanan'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-      );
-      return;
-    }
-
-    final allergyProvider = Provider.of<AllergyProvider>(
-      context,
-      listen: false,
-    );
-
-    final detectedAllergies = allergyProvider.getDetectedAllergens(
-      recognizedText,
-    );
-
-    // Menampilkan ResultScreen di bottom sheet
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return ResultPage(
-          detectedAllergies: detectedAllergies,
-          imgPath: imgPath,
-        );
-      },
-    );
-  }
-
   @override
   void dispose() {
+    _ocrHelper.dispose();
     super.dispose();
-    if (_recognizer is MLKitTextRecognizer) {
-      (_recognizer as MLKitTextRecognizer).dispose();
-    }
   }
 
   @override
