@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   static const String baseUrl =
-      'https://profound-communication-production.up.railway.app/api/articles';
+      'https://berita-api-production.up.railway.app/api/articles';
 
   static Future<List<Article>> fetchArticles(String lang) async {
     final url = Uri.parse('$baseUrl?lang=$lang'); // tambahkan query lang
