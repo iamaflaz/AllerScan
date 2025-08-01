@@ -1,3 +1,11 @@
+@ Copyright by Muhammad Ikhwan Hidayat & Zalfa Rosya Nisrina Romadhani
+
+#Perbandingan dengan Tesseract OCR
+https://colab.research.google.com/drive/1GHv-BCgqF8e59GIIMOaESb-3cNQPA3FM?usp=sharing
+
+#Hasil akurasi OCR
+https://colab.research.google.com/drive/1O6vMSnTMevreeqKY7-nULVAchY4SHWBh?usp=sharing
+
 # allerscan
 
 A new Flutter project.
